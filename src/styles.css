@@ -1,2 +1,39 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+body {
+    margin: 0;
+}
+
+.container {
+    margin: 0 auto;
+    width: 73%;
+    margin-top: 145px;
+}
+
+
+
+md-toolbar {
+    overflow: hidden;
+    background-color: #333;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+}
+
+.mat-toolbar.mat-primary {
+    background-color: rgb(0, 151, 157);
+    height: 128px;
+}
+
+.resized {
+    
+}
+
+.mat-toolbar-layout{
+    margin-top: 53px;
+}
+
+
+
