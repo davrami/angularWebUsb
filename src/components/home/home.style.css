@@ -1,0 +1,25 @@
+md-card {
+  width: 350px;
+  float: left;
+  margin: 10px;
+  
+}
+
+md-card img:hover {
+    opacity: 0.7;
+    
+}
+
+md-card {
+    background-color: #f3f3f3
+}
+
+md-card p {
+    color:orange;
+    text-align: center;
+    font-weight: bold;
+}
+
+#shell{
+    display: grid;
+}
