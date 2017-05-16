@@ -1,32 +1,38 @@
- 
 <!--ROUTER -->
-  <style>
+<style>
   .example-icon {
-  padding: 0 14px;
-}
+    padding: 0 14px;
+  }
+  
+  .example-spacer {
+    flex: 1 1 auto;
+  }
+  
+  .material-icons.md-48 {
+    font-size: 48px;
+  }
+</style>
 
-.example-spacer {
-  flex: 1 1 auto;
-}
 
-.material-icons.md-48{
-  font-size: 48px;
-}
-  </style>
+<md-toolbar color="primary">
+  <i class="material-icons md-48">usb</i>
+  <span class="example-spacer"></span>
 
+  <button md-button [routerLink]="['/']">Home</button>
+  <button md-button>Get Started</button>
+  <button md-button [mdMenuTriggerFor]="demos">Demos</button>
+  <md-menu #demos="mdMenu">
+    <button md-menu-item>LED</button>
+    <button md-menu-item>Potenciómetro</button>
+    <button md-menu-item>Pong</button>
+    <button md-menu-item>Live Script</button>
+  </md-menu>
+  <button md-button [routerLink]="['/about']">About</button>
+  <button md-button>FAQ</button>
 
- <md-toolbar color="primary">
-   <i class="material-icons md-48">usb</i>
-       <span class="example-spacer"></span>
-
-    <button md-button [routerLink]="['/']">Home</button>
-    <button md-button [routerLink]="['/about']">About</button>
-    <span class="example-spacer"></span>
-    <md-icon class="example-icon">favorite</md-icon>
-    <md-icon class="example-icon">delete</md-icon>
+  <span class="example-spacer"></span>
+  <md-icon class="example-icon">favorite</md-icon>
+  <md-icon class="example-icon">delete</md-icon>
 </md-toolbar>
 
 <router-outlet></router-outlet>
-
-
-
