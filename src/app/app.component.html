@@ -14,8 +14,8 @@
 </style>
 
 
-<md-toolbar color="primary">
-  
+<md-toolbar color="primary" class="menuSmall">
+
   <span class="example-spacer"><img src="../assets/Pictures/logo.png" alt=""></span>
 
   <button md-button [routerLink]="['/']">Home</button>
@@ -40,15 +40,3 @@
     <router-outlet></router-outlet>
   </md-card>
 </div>
-
-
-<script>
-  $(window).scroll(function (event) {
-            var y = $(this).scrollTop(); //set position from top in pixels
-            if (y >= 300) {
-                $('#header').addClass('resized');
-            } else {
-                $('#header').removeClass('resized');
-            }
-        });
-</script>
