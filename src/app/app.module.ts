@@ -18,6 +18,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from '@angular/material';
 import 'hammerjs';
 
+//Hightlightjs
+import { HighlightJsModule, HighlightJsService } from 'angular2-highlight-js';
 
 
 @NgModule({
@@ -34,10 +36,13 @@ import 'hammerjs';
     FormsModule,
     HttpModule,
     BrowserAnimationsModule,
-    MaterialModule
+    MaterialModule,
+    HighlightJsModule
   ],
 
-  providers: [],
+  providers: [
+    HighlightJsService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
