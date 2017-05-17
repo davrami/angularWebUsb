@@ -11,7 +11,9 @@ import { routes } from './app.routes';
 import { AboutComponent } from '../components/about/about.component';
 import { HomeComponent } from '../components/home/home.component';
 import { exampleDemoComponent } from '../components/exampleDemo/exampleDemo.component';
-
+import { WikiComponent } from '../components/wiki/wiki.component';
+import { FAQComponent } from '../components/FAQ/FAQ.component';
+import { getStartedComponent } from '../components/getStarted/getStarted.component';
 
 //AngularMaterial
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -27,7 +29,10 @@ import { HighlightJsModule, HighlightJsService } from 'angular2-highlight-js';
     AppComponent,
     AboutComponent,
     HomeComponent,
-    exampleDemoComponent
+    exampleDemoComponent,
+    WikiComponent,
+    FAQComponent,
+    getStartedComponent
   ],
   
   imports: [
