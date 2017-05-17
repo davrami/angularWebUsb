@@ -3,14 +3,22 @@
 
 body {
     margin: 0;
-    background-color: #efefef;
+    background-color: #f5f5f5;
 }
 
 .container {
     margin: 0 auto;
     width: 73%;
     margin-top: 94px;
+    background-color: white;
+    padding: 15px;
+    display: grid;
+    border-radius: 6px;
+    -webkit-box-shadow: 0 10px 6px -6px #777;
+       -moz-box-shadow: 0 10px 6px -6px #777;
+            box-shadow: 0 10px 6px -6px #777;
 }
+
 
 md-toolbar {
     overflow: hidden;
@@ -47,5 +55,8 @@ md-toolbar-row .mat-button {
 }
 
 
-
+h2 {
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-size: 35px;
+}
 

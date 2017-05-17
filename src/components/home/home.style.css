@@ -11,7 +11,7 @@ md-card img:hover {
 }
 
 md-card {
-    background-color: #f3f3f3
+    background-color: #fffafa;
 }
 
 md-card p {
@@ -20,6 +20,19 @@ md-card p {
     font-weight: bold;
 }
 
-#shell{
+.container {
     display: grid;
+    
+}
+
+md-card#cardFirmata img {
+    margin: 0 auto;
+    height: auto;
+    width: 95%;
+}
+
+md-card#cardWebUSb img {
+    height: auto;
+    width: 85%;
+    margin: 0 auto;
 }
