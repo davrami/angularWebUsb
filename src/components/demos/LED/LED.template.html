@@ -1,1 +1,88 @@
-demo led
+<md-tab-group>
+    <md-tab label="Overview">
+        <p>Este codigo permite al usuario encender y apagar unas entradas digitales y hacer una lectura de estas. El usuario
+            mediante unos botones puede apagar y encender los LEDs.
+        </p>
+        <h4>Hardware</h4>
+
+        <ul>
+            <li>Arduino Leonardo</li>
+            <li>4x Resistencia 330 ohm</li>
+            <li>4x LED</li>
+        </ul>
+
+        <h4>Circuito</h4>
+        <img src="../../../assets/schemas/led.png">
+    </md-tab>
+
+
+    <md-tab label="Code">
+        <div class="row">
+            <div class="col-md-6">
+                Arduino
+            </div>
+            <div class="col-md-6">
+                TypeScript
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6" style="max-height:400px; overflow-y: scroll;">
+                <section [innerHTML]="sampleContent1" highlight-js-content=".highlight"></section>
+            </div>
+            <div class="col-md-6" style="max-height:400px; overflow-y: scroll;">
+                <section [innerHTML]="sampleContent2" highlight-js-content=".highlight"></section>
+            </div>
+        </div>
+    </md-tab>
+
+
+
+    <md-tab label="Example">
+        <div class="">
+            <div class="row">
+                <div class="col-md-6">
+                    <button id="connect" class="btn btn-default">Connect</button>
+                </div>
+            </div>
+            <div class="row">
+                <div>
+                    <span>PIN 12</span>
+                    <md-slide-toggle class="example-margin" [color]="color" [checked]="checked" [disabled]="disabled">
+                        Slide me!
+                    </md-slide-toggle>
+                    <button id="1" class="btn btn-success">ON</button>
+                    <button id="2" class="btn btn-danger">OFF</button> Value: <span id="12val">0</span>
+                </div>
+
+            </div>
+            <div class="row">
+                <div>
+                    <span>PIN 11</span>
+                    <button id="3" class="btn btn-success">ON</button>
+                    <button id="4" class="btn btn-danger">OFF</button> Value: <span id="11val">0</span>
+                </div>
+            </div>
+            <div class="row">
+                <div>
+                    <span>PIN 10</span>
+                    <button id="5" class="btn btn-success">ON</button>
+                    <button id="6" class="btn btn-danger">OFF</button> Value: <span id="10val">0</span>
+                </div>
+            </div>
+            <div class="row">
+                <div>
+                    <span>PIN 9</span>
+                    <button id="7" class="btn btn-success">ON</button>
+                    <button id="8" class="btn btn-danger">OFF</button> Value: <span id="9val">0</span>
+                </div>
+            </div>
+            <div class="row">
+                <div>
+                    RAINBOW
+                    <button id="9" class="btn btn-success">start</button>
+                </div>
+            </div>
+        </div>
+
+    </md-tab>
+</md-tab-group>
