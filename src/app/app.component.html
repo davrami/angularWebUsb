@@ -23,12 +23,12 @@
   <button md-button [routerLink]="['wiki']">Wiki</button>
   <button md-button [mdMenuTriggerFor]="demos">Demos</button>
   <md-menu #demos="mdMenu">
-    <button md-menu-item>LED</button>
+    <button md-menu-item [routerLink]="['LED']">LED</button>
     <button md-menu-item>Potenciómetro</button>
     <button md-menu-item>Pong</button>
     <button md-menu-item>Live Script</button>
   </md-menu>
-  <button md-button [routerLink]="['/about']">About</button>
+  <button md-button [routerLink]="['about']">About</button>
   <button md-button [routerLink]="['FAQ']">FAQ</button>
 
   <span class="example-spacer"></span>
