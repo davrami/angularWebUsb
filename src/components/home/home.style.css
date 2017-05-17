@@ -1,0 +1,38 @@
+md-card {
+  width: 350px;
+  float: left;
+  margin: 10px;
+  
+}
+
+md-card img:hover {
+    opacity: 0.7;
+    
+}
+
+md-card {
+    background-color: #fffafa;
+}
+
+md-card p {
+    color:orange;
+    text-align: center;
+    font-weight: bold;
+}
+
+.container {
+    display: grid;
+    
+}
+
+md-card#cardFirmata img {
+    margin: 0 auto;
+    height: auto;
+    width: 95%;
+}
+
+md-card#cardWebUSb img {
+    height: auto;
+    width: 85%;
+    margin: 0 auto;
+}

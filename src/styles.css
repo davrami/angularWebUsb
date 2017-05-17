@@ -3,14 +3,21 @@
 
 body {
     margin: 0;
+    background-color: #f5f5f5;
 }
 
 .container {
     margin: 0 auto;
     width: 73%;
-    margin-top: 145px;
+    margin-top: 94px;
+    background-color: white;
+    padding: 15px;
+    display: grid;
+    border-radius: 6px;
+    -webkit-box-shadow: 0 10px 6px -6px #777;
+       -moz-box-shadow: 0 10px 6px -6px #777;
+            box-shadow: 0 10px 6px -6px #777;
 }
-
 
 
 md-toolbar {
@@ -24,16 +31,32 @@ md-toolbar {
 
 .mat-toolbar.mat-primary {
     background-color: rgb(0, 151, 157);
-    height: 128px;
+    
 }
 
-.resized {
-    
+.menuBig {
+    height: 148px;
+}
+
+.menuSmall {
+    height: 71px;
 }
 
 .mat-toolbar-layout{
     margin-top: 53px;
 }
 
+md-toolbar-row {
+    height: 0px!important;
+}
 
+md-toolbar-row .mat-button {
+    margin-bottom: 20px;
+}
+
+
+h2 {
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-size: 35px;
+}
 

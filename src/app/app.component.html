@@ -14,41 +14,27 @@
 </style>
 
 
-<md-toolbar color="primary">
-  
-  <span class="example-spacer"><img src="../assets/Pictures/logo.png" alt=""></span>
+<md-toolbar color="primary" class="menuSmall">
+  <a [routerLink]="['/']"> <img src="../assets/Pictures/logo.png" alt=""></a>
+  <span class="example-spacer"></span>
 
   <button md-button [routerLink]="['/']">Home</button>
-  <button md-button>Get Started</button>
-  <button md-button>Wiki</button>
+  <button md-button [routerLink]="['getStarted']">Get Started</button>
+  <button md-button [routerLink]="['wiki']">Wiki</button>
   <button md-button [mdMenuTriggerFor]="demos">Demos</button>
   <md-menu #demos="mdMenu">
-    <button md-menu-item>LED</button>
+    <button md-menu-item [routerLink]="['LED']">LED</button>
     <button md-menu-item>Potenciómetro</button>
     <button md-menu-item>Pong</button>
     <button md-menu-item>Live Script</button>
   </md-menu>
-  <button md-button [routerLink]="['/about']">About</button>
-  <button md-button>FAQ</button>
+  <button md-button [routerLink]="['about']">About</button>
+  <button md-button [routerLink]="['FAQ']">FAQ</button>
 
   <span class="example-spacer"></span>
 
 </md-toolbar>
 
 <div class="container">
-  <md-card>
-    <router-outlet></router-outlet>
-  </md-card>
+      <router-outlet></router-outlet>
 </div>
-
-
-<script>
-  $(window).scroll(function (event) {
-            var y = $(this).scrollTop(); //set position from top in pixels
-            if (y >= 300) {
-                $('#header').addClass('resized');
-            } else {
-                $('#header').removeClass('resized');
-            }
-        });
-</script>
