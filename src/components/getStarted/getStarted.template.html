@@ -1,1 +1,66 @@
-te parece si empezamos?
+
+<h3 class="titles1">Acceso a dispositivos USB en la Web</h3> 
+<hr>
+  
+<div class="content">
+<p>
+    Seguro que estarás pensando en dispositivos de bus serie universal (USB) del estilo teclados, ratones, 
+    dispositivos de almacenamiento...
+    <br>
+    Hay otros dispositivos USB no estandarizados que necesitan unos controladores o un SDK nativo para
+    que los desarrolladores puedan aprovecharlos. Este código nativo a impedido que los dispositivos
+    sean utilizados en Web. 
+</p>
+<p>
+    Que os parece si conectamos un Arduino Leonardo, explicaremos el proceso para SO serios (Linux) <i class="fa fa-linux fa-2x"></i>...
+</p>
+
+<h4 class="titles2">API WebUSB<md-icon class="link">usb</md-icon></h4>
+<hr>
+<p>
+La <a class="link" href="https://wicg.github.io/webusb/" target="blank_">API de WebUSB</a> porporciona a los 
+vendedores de hardware una forma de exponer con seguridad los servicios de dispositivos USB a las Web.
+</p>
+
+<h4 class="titles2">Antes de empezar</h4>
+<hr>
+<p>
+    La implementación de la <a class="link" href="https://wicg.github.io/webusb/" target="blank_">API de WebUSB</a>
+    esta parcialmente completa en Chrome. Actualmente en la versión 58.0 de Chrome podemos habilitar con fines de 
+    desarrollo las flags via la Url: <br><b>chrome://flags/#enable-experimental-web-platform-features</b>
+</p>
+
+<h5 class="titles2">Habilitar Flags en Chrome</h5>
+<p>
+    Buscamos las siguientes opciones, las habilitamos y reiniciamos Chrome.
+<img src="../../assets/Pictures/experimental.png">
+</p>
+<p>
+<img src="../../assets/Pictures/Webusbflags.png">
+</p>
+
+
+<h5 class="titles2">Obtener acceso a dispositivos USB</h5>
+<p>
+    Desde la página de debug de dispositivos que nos proporciona Chrome tendremos acceso a los dispositivos
+    conectados a nuestro navegador mediante esta Url:
+    <br><b>chrome://device-log </b><br>
+</p>
+<p>
+    Podrás observar algo así:
+<img src="../../assets/Pictures/devicespermisiondenied.png">
+</p>
+
+
+<h5 class="titles2">Gesto del usuario requerido</h5>
+<p>
+    Como una característica de seguridad, obtener acceso a dispositivos USB conectados con navigator.usb.requestDevice 
+    debe ser llamado a través de un gesto de usuario como un toque o un clic del ratón.
+</p>
+
+
+
+
+
+
+</div>

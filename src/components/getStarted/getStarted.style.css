@@ -1,0 +1,51 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,100,500,300italic,500italic,700italic,900,300);
+
+
+body {
+  font-family: "Roboto", 'Helvetica Neue, Helvetica, Arial';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Demo style */
+body { padding: 16px; }
+
+div.content{
+    padding: 50px;
+    }
+.link{
+    color: #00979D;
+    text-decoration: none;
+}
+.link:hover{
+    color: #F1C40F;
+    text-decoration:none;
+}
+.link:active{
+    text-decoration:none;
+    color: #00979D;
+}
+
+
+h3.titles1{
+    line-height: 40px;
+    text-align: center;
+    font-weight: 100 !important;
+    color: white;
+    background-color: #00979D;
+}
+
+h4.titles2{
+    font-weight: 100 !important;
+}
+
+h5.titles2{
+    font-size: 18px;
+    font-weight: 100 !important;
+}
+
+img{
+    padding: 20px;
+     width: 800px;
+}
