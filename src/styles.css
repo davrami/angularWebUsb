@@ -60,3 +60,12 @@ h2 {
     font-size: 35px;
 }
 
+body > app-root > md-toolbar{
+    z-index: 3;
+}
+button:focus{
+outline-width: 0;
+}
+.container{
+    padding: 0px;
+}

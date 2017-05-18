@@ -1,8 +1,17 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto:400,100,500,300italic,500italic,700italic,900,300);
 
 
+[_nghost-c5]{
+    font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #292b2c;
+    background-color: #fff;;
+}
+
 body {
-  font-family: "Roboto", 'Helvetica Neue, Helvetica, Arial';
+  font-family: "Roboto,Helvetica Neue,Arial,sans-serif"!important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
@@ -49,3 +58,15 @@ img{
     padding: 20px;
      width: 800px;
 }
+
+
+.coderesult{
+    background-color: lightgray;
+    font-weight: 100;
+}
+
+.code{
+    height: 400px;
+    overflow-y: scroll;
+}
+

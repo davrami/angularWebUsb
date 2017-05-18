@@ -32,6 +32,7 @@ import { HighlightJsModule, HighlightJsService } from 'angular2-highlight-js';
 import { ChartModule } from 'angular2-highcharts';
 import { HighchartsStatic } from 'angular2-highcharts/dist/HighchartsService';
 
+
 declare var require: any;
 export function highchartsFactory() {
   return require('highcharts');
@@ -58,7 +59,8 @@ export function highchartsFactory() {
     BrowserAnimationsModule,
     MaterialModule,
     HighlightJsModule,
-    ChartModule
+    ChartModule,
+
   ],
 
   providers: [

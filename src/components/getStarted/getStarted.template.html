@@ -1,66 +1,183 @@
+<md-tab-group>
+    <md-tab label="Get Started">
+        <h3 class="titles1">Acceso a dispositivos USB en la Web</h3>
 
-<h3 class="titles1">Acceso a dispositivos USB en la Web</h3> 
-<hr>
-  
-<div class="content">
-<p>
-    Seguro que estarás pensando en dispositivos de bus serie universal (USB) del estilo teclados, ratones, 
-    dispositivos de almacenamiento...
-    <br>
-    Hay otros dispositivos USB no estandarizados que necesitan unos controladores o un SDK nativo para
-    que los desarrolladores puedan aprovecharlos. Este código nativo a impedido que los dispositivos
-    sean utilizados en Web. 
-</p>
-<p>
-    Que os parece si conectamos un Arduino Leonardo, explicaremos el proceso para SO serios (Linux) <i class="fa fa-linux fa-2x"></i>...
-</p>
+        <div class="content">
+            <p>
+                Seguro que estarás pensando en dispositivos de bus serie universal (USB) del estilo teclados, ratones, dispositivos de almacenamiento...
+                <br> Hay otros dispositivos USB no estandarizados que necesitan unos controladores o un SDK nativo para que
+                los desarrolladores puedan aprovecharlos. Este código nativo a impedido que los dispositivos sean utilizados
+                en Web.
+            </p>
+            <p>
+                Vamos a conectar un <b>Arduino Leonardo chip(ATmega32u4)</b>, explicaremos el proceso para SO serios (Linux)
+                <i class="fa fa-linux fa-2x"></i>... <br> Te invitamos a visitar nuestro repo en <a class="link" href="https://github.com/davrami/angularWebUsb"
+                    target="blank_">Github</a>
+            </p>
 
-<h4 class="titles2">API WebUSB<md-icon class="link">usb</md-icon></h4>
-<hr>
-<p>
-La <a class="link" href="https://wicg.github.io/webusb/" target="blank_">API de WebUSB</a> porporciona a los 
-vendedores de hardware una forma de exponer con seguridad los servicios de dispositivos USB a las Web.
-</p>
+            <h4 class="titles2">API WebUSB
+                <md-icon class="link">usb</md-icon>
+            </h4>
+            <hr>
+            <p>
+                La <a class="link" href="https://wicg.github.io/webusb/" target="blank_">API de WebUSB</a> porporciona a
+                los vendedores de hardware una forma de exponer con seguridad los servicios de dispositivos USB a las Web.
+            </p>
 
-<h4 class="titles2">Antes de empezar</h4>
-<hr>
-<p>
-    La implementación de la <a class="link" href="https://wicg.github.io/webusb/" target="blank_">API de WebUSB</a>
-    esta parcialmente completa en Chrome. Actualmente en la versión 58.0 de Chrome podemos habilitar con fines de 
-    desarrollo las flags via la Url: <br><b>chrome://flags/#enable-experimental-web-platform-features</b>
-</p>
+            <h4 class="titles2">Antes de empezar</h4>
+            <hr>
+            <p>
+                La implementación de la <a class="link" href="https://wicg.github.io/webusb/" target="blank_">API de WebUSB</a>                esta parcialmente completa en Chrome. Actualmente en la versión 58.0 de Chrome podemos habilitar con fines
+                de desarrollo las flags via la Url: <br><b>chrome://flags/#enable-experimental-web-platform-features</b>
+            </p>
 
-<h5 class="titles2">Habilitar Flags en Chrome</h5>
-<p>
-    Buscamos las siguientes opciones, las habilitamos y reiniciamos Chrome.
-<img src="../../assets/Pictures/experimental.png">
-</p>
-<p>
-<img src="../../assets/Pictures/Webusbflags.png">
-</p>
+            <h5 class="titles2">Habilitar Flags en Chrome</h5>
+            <p>
+                Buscamos las siguientes opciones, las habilitamos y reiniciamos Chrome.
+                <img src="../../assets/Pictures/experimental.png">
+            </p>
+            <p>
+                <img src="../../assets/Pictures/Webusbflags.png">
+            </p>
+
+            <h5 class="titles2">Obtener acceso a dispositivos USB</h5>
+            <p>
+                Desde la página de debug de dispositivos que nos proporciona Chrome tendremos acceso a los dispositivos conectados a nuestro
+                navegador mediante esta Url:
+                <br><b>chrome://device-log </b><br>
+            </p>
+            <p>
+                Podrás observar algo así:
+                <img src="../../assets/Pictures/devicespermisiondenied.png">
+            </p>
+
+            <p>
+                Si al conectar el Arduino tienes en el log un dispositivo como en la foto con Permission denied, deberás seguir añadir una
+                rule <a class="link" href="https://wiki.archlinux.org/index.php/Udev_(Espa%C3%B1ol)" target="blank_">udev</a>                en los dispositivos Usb para poder utilizarlo.
+            </p>
+            <h5 class="titles2">Introduciendo norma Udev</h5>
+            <p>
+                En Linux los dispositivos USB se asignan solo con permisos lectura de forma predeterminada. Para proporcionar accesoa Chrome
+                a nuestro dispositivo deberemos añadir una regla <a class="link" href="https://wiki.archlinux.org/index.php/Udev_(Espa%C3%B1ol)"
+                    target="blank_">udev</a> El primer paso es saber el idVendor y el idProduct de nuestro dispositivo. Desde
+                el terminal con la orden <b>lsusb</b> podremos visualizar esta información:
+                <br><span class="coderesult">003 Device 016: ID 2341:8036 Arduino SA Leonardo (CDC ACM, HID)</span><br> En
+                este caso el idVendor es 2341 y el idProduct es 8036.<br> Para añadir la norma udev deberemos crear un archivo
+                con la orden <b>sudo nano /etc/udev/rules.d/99-arduino.rules</b> con el siguiente contenido(sustituye el
+                idVendor y idProduct por los tuyos):<br>
+                <span class="coderesult">SUBSYSTEM=="usb", ATTR{{ '{' }}idVendor{{ '}' }}=="2341", ATTR{{ '{' }}idProduct{{ '}' }}=="8036", MODE="0664", GROUP="plugdev" ,
+                 SYMLINK+="ttyUSB%n"</span><br>
+            </p>
+            <p>
+                Hay que asegurarse de que tu usuario es miembro del grupo <span class="coderesult">plugdev</span>. Comando
+                para ver los grupos que eres miembro <b>groups</b>, orden para añadirte al grupo <b>sudo usermod -a -G plugdev nombredeusuario</b>
+            </p>
+            <p>
+                Si todo ha ido bien, al conectar el Arduino en Chrome podremos ver en <b>chrome://device-log</b> que nuestro
+                dispositivo ya tiene permisos de lectura:
+                <img src="../../assets/Pictures/logdeviceOk.png"> <br> Sigue en la pestaña de Let's Code.
+            </p>
+
+            <p>
+                Fuentes:<br>
+                <a class="link" href="https://developers.google.com/web/updates/2016/03/access-usb-devices-on-the-web" target="blank_">https://developers.google.com/web/updates/2016/03/access-usb-devices-on-the-web</a>
+                <a class="link" href="http://playground.arduino.cc/Linux/All" target="blank_">http://playground.arduino.cc/Linux/All</a>
+            </p>
+
+        </div>
+
+    </md-tab>
+
+    <md-tab label="Let's Code">
+
+        <h3 class="titles1">Vamos a picar teclas</h3>
+
+        <div class="content">
+            <p>
+                Actualmente para trabajar con Arduino y WebUSB debemos preparar:
+            </p>
+            <ul>
+                <li>Arduino con chip ATmega32u4 (Leonardo)</li>
+                <li><a class="link" href="https://developers.google.com/web/updates/2016/03/access-usb-devices-on-the-web" target="blank_">Flags</a>                    habilitadas de WebUsb en Chrome</li>
+                <li><a class="link" href="https://www.arduino.cc/en/Main/OldSoftwareReleases#previous" target="blank_">IDE Arduino</a>                    versión 1.6.11</li>
+                <li>Upgrade de librería UsbCore.h de Arduino</li>
+                <li>Introducir librería <a class="link" href="https://github.com/webusb/arduino/tree/gh-pages/library/WebUSB"
+                        target="blank_">WebUsb</a></li>
+
+            </ul>
+
+            <h4 class="titles2">Upgrade UsbCore.h</h4>
+            <hr>
+            <p>
+                Para que nuestro dispositivo tenga soporte de la API WebUSB deberemos mejorar nuestro dispositivo de <b>USB2.0</b>                a <b>USB2.1</b><br> Deberemos modificar el archivo USBCore.h que se encuentra en directorio de instalacion
+                del IDE Arduino
+                <b>hardware/arduino/avr/cores/arduino/USBCore.h</b> Busca la linia <span class="coderesult">#define USB_VERSION 0x200</span>                y cambia el valor <b>0x200</b> a <b>0x210</b>
+            </p>
+            <p>
+                El siguiente paso es copiar la librería de <a class="link" href="https://github.com/webusb/arduino/tree/gh-pages/library/WebUSB"
+                    target="blank_">WebUsb</a> dentro de la carpeta <b>libraries</b> del directorio de instalación del IDE Arduino.
+            </p>
+            <h4 class="titles2">Cargando Sketch WebUsb</h4>
+            <hr>
+            <p>
+                Para realizar la primera prueba cargaremos un primer Sketch proporcionado en el siguiente
+                <a class="link" href="https://github.com/webusb/arduino/tree/gh-pages/demos/console/sketch" target="blank_">repo</a>                .Carga el sketch al arduino y abre Chrome, deberá mostrarte un mensaje como el de la imagen:
+            </p>
+            <img src="../../assets/Pictures/connected.png" style="width: 460px;">
+            <h5 class="titles2">Sketch <a class="link" href="https://github.com/webusb/arduino/tree/gh-pages/demos/console/sketch" target="blank_">Demo</a></h5>
+
+            <div class="code">
+                <section [innerHTML]="demoArduino" highlight-js-content=".highlight"></section>
+            </div>
 
 
-<h5 class="titles2">Obtener acceso a dispositivos USB</h5>
-<p>
-    Desde la página de debug de dispositivos que nos proporciona Chrome tendremos acceso a los dispositivos
-    conectados a nuestro navegador mediante esta Url:
-    <br><b>chrome://device-log </b><br>
-</p>
-<p>
-    Podrás observar algo así:
-<img src="../../assets/Pictures/devicespermisiondenied.png">
-</p>
 
 
-<h5 class="titles2">Gesto del usuario requerido</h5>
-<p>
-    Como una característica de seguridad, obtener acceso a dispositivos USB conectados con navigator.usb.requestDevice 
-    debe ser llamado a través de un gesto de usuario como un toque o un clic del ratón.
-</p>
+            <h5 class="titles2">Notas</h5>
+            <p>
+                Para trabajar con el IDE de Arduino es posible que tu usuario tenga que ser miembro del grupo dialout. Asegurate de que tienes
+                la librería de WebUsb cargada en el IDE, puedes comprobar si aparece en la pestaña de Sketch > Import Library...
+                debería aparecer WebUsb. Comprueba que tienes seleccionado el port correcto en el IDE y la placa correcta
+                seleccionada.
+            </p>
+
+            <p>
+                Fuentes:<br>
+                <a class="link" href=" https://webusb.github.io/arduino/ " target="blank_"> https://webusb.github.io/arduino/</a>
+            </p>
+        </div>
+
+    </md-tab>
+
+    <md-tab label="First Demo">
+
+        <h3 class="titles1">WebUSB ❤ ️Arduino</h3>
+
+        <div class="content">
+
+            <h4 class="titles2">Demo Console</h4>
+            <hr>
+            <p>
+                Para probar la demo Console deberemos tener cargado el 
+                <a class="link" href="https://github.com/webusb/arduino/tree/gh-pages/demos/console/sketch" target="blank_">Sketch</a> 
+                que hemos mencionado en el paso previo.<br>
+                Entra en <a class="link" href="https://webusb.github.io/arduino/demos/console/" target="blank_">https://webusb.github.io/arduino/demos/console/</a> 
+            </p>
+            
+
+            <h5 class="titles2">Notas</h5>
+            <p>
+               
+            </p>
+
+            <p>
+                Fuentes:<br>
+                <a class="link" href=" https://webusb.github.io/arduino/ " target="blank_"> https://webusb.github.io/arduino/</a>
+            </p>
+        </div>
 
 
 
+    </md-tab>
 
-
-
-</div>
+</md-tab-group>
