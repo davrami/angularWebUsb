@@ -60,3 +60,26 @@ h2 {
     font-size: 35px;
 }
 
+#connect {
+    margin-top: -33px;
+  display: inline-block;
+  padding: 7px 17px;
+  font-size: 17px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: orange;
+  border: none;
+  
+  box-shadow: 0 9px #999;
+}
+
+#connect:hover {background-color:orange }
+
+#connect:active {
+  background-color: orange;
+  box-shadow: 0 5px lightgray;
+  transform: translateY(4px);
+}
