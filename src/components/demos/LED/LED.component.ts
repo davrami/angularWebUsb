@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+//import '../../../assets/js/rainbow/rainbow.js';
+import {port,textEncoder} from  '../../../assets/js/rainbow/rainbow.js';
 
 @Component({
   selector: 'app-LED',
@@ -6,10 +8,35 @@ import { Component } from '@angular/core';
   templateUrl: './LED.template.html'
 })
 export class LEDComponent {
+
+  public pins: Array<any>;
+
+  constructor() {
+    this.pins = [
+      ['pin12', 1, 2, false],
+      ['pin11', 3, 4, false],
+      ['pin10', 5, 6, false],
+      ['pin9', 7, 8, false]
+    ];
+  }
+
+  toggle(pin) {
+    console.log(pin);
+
+    this.pins.forEach(function (v, i) {
+      if (v[0].includes(pin)) {
+        v[3] = !v[3];
+        (v[3]) ? port.send(textEncoder.encode(v[1])) : port.send(textEncoder.encode(v[2]));
+      }
+    });
+  }
+
+
+
   sampleContent1 = `
          <pre >
-            <code class="c highlight">
-  #include <WebUSB.h>
+            <code class="arduino highlight">
+  #include &ltWebUSB.h&gt
 
   const WebUSBURL URLS[] = {
     { 1, "webusb.github.io/arduino/demos/" },

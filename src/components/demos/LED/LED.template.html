@@ -38,48 +38,24 @@
 
 
     <md-tab label="Example">
-        <div class="">
-            <div class="row">
-                <div class="col-md-6">
-                    <button id="connect" class="btn btn-default">Connect</button>
+        <div style="margin: 10px;">
+            <div>
+                <div class="boton">
+                    <span>PIN12</span>
+                    <md-slide-toggle  (click)="toggle(12)">Slide me!</md-slide-toggle>
+                   
                 </div>
-            </div>
-            <div class="row">
-                <div>
-                    <span>PIN 12</span>
-                    <md-slide-toggle class="example-margin" [color]="color" [checked]="checked" [disabled]="disabled">
-                        Slide me!
-                    </md-slide-toggle>
-                    <button id="1" class="btn btn-success">ON</button>
-                    <button id="2" class="btn btn-danger">OFF</button> Value: <span id="12val">0</span>
+                <div class="boton">
+                    <span>PIN11</span>
+                    <md-slide-toggle  (click)="toggle(11)">Slide me!</md-slide-toggle>
                 </div>
-
-            </div>
-            <div class="row">
-                <div>
-                    <span>PIN 11</span>
-                    <button id="3" class="btn btn-success">ON</button>
-                    <button id="4" class="btn btn-danger">OFF</button> Value: <span id="11val">0</span>
+                <div class="boton">
+                    <span>PIN10</span>
+                    <md-slide-toggle  (click)="toggle(10)">Slide me!</md-slide-toggle>
                 </div>
-            </div>
-            <div class="row">
-                <div>
-                    <span>PIN 10</span>
-                    <button id="5" class="btn btn-success">ON</button>
-                    <button id="6" class="btn btn-danger">OFF</button> Value: <span id="10val">0</span>
-                </div>
-            </div>
-            <div class="row">
-                <div>
-                    <span>PIN 9</span>
-                    <button id="7" class="btn btn-success">ON</button>
-                    <button id="8" class="btn btn-danger">OFF</button> Value: <span id="9val">0</span>
-                </div>
-            </div>
-            <div class="row">
-                <div>
-                    RAINBOW
-                    <button id="9" class="btn btn-success">start</button>
+                <div class="boton">
+                    <span>PIN9</span>
+                    <md-slide-toggle  (click)="toggle(9)">Slide me!</md-slide-toggle>
                 </div>
             </div>
         </div>
