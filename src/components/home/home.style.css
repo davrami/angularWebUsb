@@ -12,6 +12,8 @@ md-card img:hover {
 
 md-card {
     background-color: #fffafa;
+    width: 31%!important;
+    
 }
 
 md-card p {
@@ -28,11 +30,12 @@ md-card p {
 md-card#cardFirmata img {
     margin: 0 auto;
     height: auto;
-    width: 95%;
+    width: 100%;
+    display: block;
 }
 
 md-card#cardWebUSb img {
-    height: auto;
-    width: 85%;
+    width: 89%;
+    display: block;
     margin: 0 auto;
 }

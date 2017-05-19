@@ -40,18 +40,19 @@ div.content{
 h3.titles1{
     line-height: 40px;
     text-align: center;
-    font-weight: 100 !important;
+    font-weight: 300 !important;
     color: white;
     background-color: #00979D;
 }
 
 h4.titles2{
-    font-weight: 100 !important;
+    font-weight: 300 !important;
 }
 
 h5.titles2{
     font-size: 18px;
-    font-weight: 100 !important;
+    font-weight: 300 !important;
+    text-decoration-line: underline;
 }
 
 img{
