@@ -92,3 +92,48 @@ outline-width: 0;
   box-shadow: 0 5px lightgray;
   transform: translateY(4px);
 }
+
+
+div.content{
+    padding: 50px;
+}
+.link{
+    color: #00979D;
+    text-decoration: none;
+}
+.link:hover{
+    color: #F1C40F;
+    text-decoration:none;
+}
+.link:active{
+    text-decoration:none;
+    color: #00979D;
+}
+
+
+h3.titles1{
+    line-height: 40px;
+    text-align: center;
+    font-weight: 100 !important;
+    color: white;
+    background-color: #00979D;
+}
+
+h4.titles2{
+    font-weight: 100 !important;
+}
+
+h5.titles2{
+    font-size: 18px;
+    font-weight: 100 !important;
+}
+
+.coderesult{
+    background-color: lightgray;
+    font-weight: 100;
+}
+
+.code{
+    height: 400px;
+    overflow-y: scroll;
+}

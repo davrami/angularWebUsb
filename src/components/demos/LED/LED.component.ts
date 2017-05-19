@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 //import '../../../assets/js/rainbow/rainbow.js';
-import {port,textEncoder} from  '../../../assets/js/rainbow/rainbow.js';
+import { port, textEncoder } from '../../../assets/js/rainbow/rainbow.js';
 
 @Component({
   selector: 'app-LED',
@@ -142,16 +142,32 @@ export class LEDComponent {
   sampleContent2 = `
          <pre>
             <code class="typescript highlight">
-                class Greeter {
-                    constructor(public greeting: string) { }
-                    greet() {
-                        return "hello world";
-                    }
-                };
+  public pins: Array<any>;
+
+  constructor() {
+    this.pins = [
+      ['pin12', 1, 2, false],
+      ['pin11', 3, 4, false],
+      ['pin10', 5, 6, false],
+      ['pin9', 7, 8, false]
+    ];
+  }
+
+  toggle(pin) {
+    console.log(pin);
+
+    this.pins.forEach(function (v, i) {
+      if (v[0].includes(pin)) {
+        v[3] = !v[3];
+        (v[3]) ? 
+          port.send(textEncoder.encode(v[1])) : 
+          port.send(textEncoder.encode(v[2]));
+      }
+    });
+  }
             </code>
         </pre>
         
         `;
-
 
 }

@@ -1,19 +1,18 @@
 <md-tab-group>
     <md-tab label="Overview">
         <div class="content">
-            <p>Este codigo permite al usuario encender y apagar unas entradas digitales y hacer una lectura de estas. El usuario
-                mediante unos botones puede apagar y encender los LEDs.
+            <p>Mediante la lectura analógica de un potenciómetro el usuario puede regular un potenciometro y ver los voltios
+                o el porcentage de este.Los datos son representados en unos gráfico.
             </p>
             <h4 class="titles2">Hardware</h4>
 
             <ul>
                 <li>Arduino Leonardo</li>
-                <li>4x Resistencia 330 ohm</li>
-                <li>4x LED</li>
+                <li>1x Pontenciómetro</li>
             </ul>
 
             <h4 class="titles2">Circuito</h4>
-            <img src="../../../assets/schemas/led.png">
+            <img src="../../../assets/schemas/potenSketch.png">
         </div>
     </md-tab>
 
@@ -45,22 +44,24 @@
 
     <md-tab label="Example">
         <div class="content">
-            <div class="boton">
-                <span>PIN12</span>
-                <md-slide-toggle (click)="toggle(12)">Slide me!</md-slide-toggle>
+            <div>
+                <button type="button" class="btn btn-default">Start</button>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <h3>Porcentaje: </h3>
+                    <h3 id="valPor">
 
-            </div>
-            <div class="boton">
-                <span>PIN11</span>
-                <md-slide-toggle (click)="toggle(11)">Slide me!</md-slide-toggle>
-            </div>
-            <div class="boton">
-                <span>PIN10</span>
-                <md-slide-toggle (click)="toggle(10)">Slide me!</md-slide-toggle>
-            </div>
-            <div class="boton">
-                <span>PIN9</span>
-                <md-slide-toggle (click)="toggle(9)">Slide me!</md-slide-toggle>
+                    </h3>
+                    <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+                </div>
+                <div class="col-md-6">
+                    <h3>Voltaje: </h3>
+                    <h3 id="valVolt">
+
+                    </h3>
+                    <div id="container2" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+                </div>
             </div>
         </div>
 

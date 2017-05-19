@@ -7,6 +7,7 @@ import { WikiComponent } from '../components/wiki/wiki.component';
 import { FAQComponent } from '../components/FAQ/FAQ.component';
 import { getStartedComponent } from '../components/getStarted/getStarted.component';
 import { LEDComponent } from '../components/demos/LED/LED.component';
+import { PotenComponent } from '../components/demos/potenciometro/poten.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -16,4 +17,5 @@ export const routes: Routes = [
   { path: 'FAQ', component: FAQComponent },
   { path: 'getStarted', component: getStartedComponent },
   { path: 'LED', component: LEDComponent },
+  { path: 'poten', component: PotenComponent }
 ];

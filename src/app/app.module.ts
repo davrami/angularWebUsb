@@ -18,7 +18,7 @@ import { getStartedComponent } from '../components/getStarted/getStarted.compone
 
 
 import { LEDComponent } from '../components/demos/LED/LED.component';
-
+import { PotenComponent } from '../components/demos/potenciometro/poten.component'
 
 //AngularMaterial
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -47,8 +47,8 @@ export function highchartsFactory() {
     WikiComponent,
     FAQComponent,
     getStartedComponent,
-    LEDComponent
-    //LEDComponent
+    LEDComponent,
+    PotenComponent
   ],
   
   imports: [

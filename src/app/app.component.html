@@ -24,7 +24,7 @@
   <button md-button [mdMenuTriggerFor]="demos">Demos</button>
   <md-menu #demos="mdMenu">
     <button md-menu-item [routerLink]="['LED']">LED</button>
-    <button md-menu-item>Potenciómetro</button>
+    <button md-menu-item [routerLink]="['poten']">Potenciómetro</button>
     <button md-menu-item>Pong</button>
     <button md-menu-item>Live Script</button>
   </md-menu>
@@ -32,7 +32,7 @@
   <button md-button [routerLink]="['FAQ']">FAQ</button>
 
   <span class="example-spacer"></span>
-  <button id="connect" class="button__inner">Connect</button>
+  <button id="connect" class="button__inner" (click)="openSnackBar($event,'Device')">Connect</button>
 </md-toolbar>
 
 <div class="container">
