@@ -1,0 +1,53 @@
+<md-tab-group>
+    <md-tab label="Overview">
+        <div class="content">
+            <p>Sandbox para live conding
+            </p>
+            <h4 class="titles2">Hardware</h4>
+
+            <ul>
+                <li>Arduino Leonardo</li>
+            </ul>
+        </div>
+    </md-tab>
+
+    <md-tab label="Code">
+        <div class="content">
+            <div class="row">
+                <div class="col-md-6">
+                    Sketch Arduino
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-6" style="max-height:400px; overflow-y: scroll;">
+                    <!--<section [innerHTML]="sampleContent1" highlight-js-content=".highlight"></section>-->
+                </div>
+            </div>
+        </div>
+    </md-tab>
+
+    <md-tab label="Sandbox">
+        <div class="content">
+            <div>
+                <button type="button" class="btn btn-default">Start</button>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <md-card-content>
+                            <div>
+                            <md-input-container>
+                                <textarea mdInput mdTextareaAutosize placeholder="Autosized textarea" [(ngModel)]="text"></textarea>
+                            </md-input-container>
+                           {{text}}
+                        </div>
+                    </md-card-content>
+                </div>
+                <div class="col-md-6">
+                </div>
+
+            </div>
+        </div>
+
+    </md-tab>
+</md-tab-group>

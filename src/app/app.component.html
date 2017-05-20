@@ -20,16 +20,15 @@
 
   <button md-button [routerLink]="['/']">Home</button>
   <button md-button [routerLink]="['getStarted']">Get Started</button>
-  <button md-button [routerLink]="['wiki']">Wiki</button>
   <button md-button [mdMenuTriggerFor]="demos">Demos</button>
   <md-menu #demos="mdMenu">
     <button md-menu-item [routerLink]="['LED']">LED</button>
     <button md-menu-item [routerLink]="['poten']">Potenciómetro</button>
     <button md-menu-item>Pong</button>
-    <button md-menu-item>Live Script</button>
+    <button md-menu-item [routerLink]="['sandbox']">Sandbox</button>
   </md-menu>
+  <button md-button [routerLink]="['wiki']">Wiki</button>
   <button md-button [routerLink]="['about']">About</button>
-  <button md-button [routerLink]="['FAQ']">FAQ</button>
 
   <span class="example-spacer"></span>
   <button id="connect" class="button__inner" (click)="openSnackBar($event,'Device')">Connect</button>
