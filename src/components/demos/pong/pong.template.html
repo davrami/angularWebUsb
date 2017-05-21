@@ -1,0 +1,49 @@
+<md-tab-group>
+    <md-tab label="Overview">
+        <div class="content">
+            <p>Clasico juego multijugador del <a class="link" href="https://es.wikipedia.org/wiki/Pong">pong</a> llevado al
+                mundo web, controlado con los potenciometros de un arduino. Al marcar un punto la puntuación se ve reflejada
+                en la pantalla LCD.</p>
+            <h4 class="titles2">Hardware</h4>
+
+            <ul>
+                <li>Arduino Leonardo</li>
+                <li>1x Pantalla LCD 1602A</li>
+                <li>3x Potenciómetro</li>
+            </ul>
+
+            <h4 class="titles2">Circuito</h4>
+            <img src="../../../assets/schemas/pongSketch.png">
+        </div>
+    </md-tab>
+
+
+    <md-tab label="Code">
+        <div class="content">
+            <div class="row">
+                <div class="col-md-6">
+                    Arduino
+                </div>
+                <div class="col-md-6">
+                    TypeScript
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6" style="max-height:400px; overflow-y: scroll;">
+                    <section [innerHTML]="sampleContent1" highlight-js-content=".highlight"></section>
+                </div>
+                <div class="col-md-6" style="max-height:400px; overflow-y: scroll;">
+                    <section [innerHTML]="sampleContent2" highlight-js-content=".highlight"></section>
+                </div>
+            </div>
+        </div>
+    </md-tab>
+
+
+    <md-tab label="Example">
+        <div class="content">
+            <button id="send" type="button" class="btn btn-default">Start</button>
+            <canvas id="game" width="800" height="270"></canvas>
+        </div>
+    </md-tab>
+</md-tab-group>

@@ -1,5 +1,8 @@
 var port;
 var value;
+var posiciones;
+var pPlayer1;
+var pPlayer2;
 let textEncoder = new TextEncoder();
 
 
@@ -15,21 +18,14 @@ function connect() {
         connectButton.textContent = 'Disconnect';
         port.onReceive = data => {
             let textDecoder = new TextDecoder();
-
-            console.log("Recieved: " + textDecoder.decode(data).charCodeAt(2));
-
             value = textDecoder.decode(data) + "";
-            /*
-            if(value.includes("12")){
-                $("#12val").html(value.charCodeAt(2))
-            }else if(value.includes("11")){
-                $("#11val").html(value.charCodeAt(2))
-            }else if(value.includes("10")){
-                $("#10val").html(value.charCodeAt(2))
-            }else {
-               $("#9val").html(value.charCodeAt(2))
-            }*/
-
+            posiciones = value.split("-");
+            pPlayer1 = posiciones[0].charCodeAt();
+            pPlayer2 = posiciones[1].charCodeAt();
+            //console.log("Player1: "+pPlayer1);
+            //console.log("Player2: "+pPlayer2);
+            p1.y = (270 * pPlayer1) / 100;
+            p2.y = (270 * pPlayer2) / 100;
 
         }
         port.onReceiveError = error => {
@@ -63,7 +59,12 @@ serial.getPorts().then(ports => {
     }
 });
 
+$(document).on("click", "#send", function () {
+    // Start the game execution
+    MainLoop();
+
+    setInterval(function () { port.send(textEncoder.encode("H")); }, 50);
 
 
-
+});
 
