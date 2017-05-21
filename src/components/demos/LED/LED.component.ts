@@ -1,23 +1,35 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
 //import '../../../assets/js/rainbow/rainbow.js';
-import { port, textEncoder } from '../../../assets/js/rainbow/rainbow.js';
+//import { port, textEncoder } from '../../../assets/js/rainbow/rainbow.js';
 
 @Component({
   selector: 'app-LED',
   styleUrls: ['./LED.style.css'],
   templateUrl: './LED.template.html'
 })
-export class LEDComponent {
+export class LEDComponent implements AfterViewInit {
 
   public pins: Array<any>;
 
-  constructor() {
+  constructor(private elementRef: ElementRef) {
     this.pins = [
       ['pin12', 1, 2, false],
       ['pin11', 3, 4, false],
       ['pin10', 5, 6, false],
       ['pin9', 7, 8, false]
     ];
+  }
+
+  ngAfterViewInit() {
+    var o = document.createElement("script");
+    o.type = "text/javascript";
+    o.src = "../../../assets/js/rainbow/serial.js";
+    this.elementRef.nativeElement.appendChild(o);
+
+    var s = document.createElement("script");
+    s.type = "text/javascript";
+    s.src = "../../../assets/js/rainbow/rainbow.js";
+    this.elementRef.nativeElement.appendChild(s);
   }
 
   toggle(pin) {
