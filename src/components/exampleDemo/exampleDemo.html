@@ -2,49 +2,8 @@
 <md-card>
 
     <section [innerHTML]="sampleContent" highlight-js-content=".highlight"></section>
-    <chart [options]="options" (load)="saveChart($event.context)">
-
-        <!--<series (hide)="onSeriesHide($event.context)">
-            <point (select)="onPointSelect($event.context)"></point>
-          </series>-->
-
-    </chart>
-    <button (click)="addPoint()">Click to add random points</button>
-    <button (click)="reset()">Reset</button>
-    <button (click)="start()">Start</button>
-    <button (click)="addPoint()">Stop</button>
-
-<div id="container" style="height: 400px; width: 500px"></div>
-<button id="button">Remove point</button>
 
 </md-card>
-
-<script>var chart = Highcharts.chart('container', {
-    plotOptions: {
-        series: {
-            point: {
-                events: {
-                    remove: function () {
-                        if (!confirm('Do you really want to remove the first point?')) {
-                            return false;
-                        }
-                    }
-                }
-            }
-        }
-    },
-    series: [{
-        data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
-    }]
-});
-
-// button handler
-$('#button').click(function () {
-    var series = chart.series[0];
-    if (series.data.length) {
-        chart.series[0].data[0].remove();
-    }
-});</script>
 
 
 <!--############################## Form Example ##############################-->

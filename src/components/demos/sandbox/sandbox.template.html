@@ -28,25 +28,33 @@
     </md-tab>
 
     <md-tab label="Sandbox">
-        <div class="content">
-            <div>
-                <button type="button" class="btn btn-default">Start</button>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <md-card-content>
-                            <div>
-                            <md-input-container>
-                                <textarea mdInput mdTextareaAutosize placeholder="Autosized textarea" [(ngModel)]="text"></textarea>
-                            </md-input-container>
-                           {{text}}
-                        </div>
-                    </md-card-content>
-                </div>
-                <div class="col-md-6">
-                </div>
+        <h4 class="titles2">Live comunicate
+            <md-icon class="link">usb</md-icon>
+        </h4>
 
+        <div class="content">
+            <div class="row">
+                    <div class="col-md-6">
+
+
+                        <md-input-container style="min-width:100%;">
+                            <textarea mdInput mdTextareaAutosize placeholder="Code..." [(ngModel)]="textToSend"></textarea>
+                        </md-input-container>
+
+                    </div>
+
+                    <div class="col-md-6">
+
+                        Response...
+                    </div>
+
+
+                    <br> {{text}}
+                    <br>
+                    <button md-raised-button color="accent" (click)="send()"> Send </button>
             </div>
+
+
         </div>
 
     </md-tab>

@@ -11,9 +11,11 @@ moduleId: module.id,
   styleUrls: ['./sandbox.style.css'],
 })
 export class SandboxComponent {
-model2 = new PlacaModel(false,"");
+textToSend : string;
 
-//onConnected() {this.connected = true;} 
+send = function(){
+    console.log(this.textToSend);
+}
 
 }
 

@@ -12,10 +12,6 @@ import 'hammerjs';
 //Hightlightjs
 import { HighlightJsModule, HighlightJsService } from 'angular2-highlight-js';
 
-//HightCharts
-import { ChartModule } from 'angular2-highcharts';
-import { HighchartsStatic } from 'angular2-highcharts/dist/HighchartsService';
-
 
 //Routing
 import { RouterModule } from '@angular/router';
@@ -47,17 +43,13 @@ export function highchartsFactory() {
   
   imports: [
     RouterModule.forRoot(routes), BrowserModule, FormsModule, HttpModule, BrowserAnimationsModule,MaterialModule,
-    HighlightJsModule, ChartModule, ReactiveFormsModule
+    HighlightJsModule, ReactiveFormsModule
 
   ],
 
   providers: [
     HighlightJsService,
-    {
-      provide: HighchartsStatic,
-      useFactory: highchartsFactory
-    }
-  ],
+    ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
