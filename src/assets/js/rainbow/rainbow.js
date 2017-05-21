@@ -1,8 +1,8 @@
-export var port;
-export var value;
-export let textEncoder = new TextEncoder();
+var port;
+var value;
+let textEncoder = new TextEncoder();
 
-document.addEventListener('DOMContentLoaded', event => {
+
     let connectButton = document.querySelector('#connect');
 
 
@@ -16,9 +16,9 @@ document.addEventListener('DOMContentLoaded', event => {
             port.onReceive = data => {
                 let textDecoder = new TextDecoder();
 
-                console.log("Recieved: "+textDecoder.decode(data).charCodeAt(2));
+                console.log("Recieved: " + textDecoder.decode(data).charCodeAt(2));
 
-                value = textDecoder.decode(data)+"";
+                value = textDecoder.decode(data) + "";
                 /*
                 if(value.includes("12")){
                     $("#12val").html(value.charCodeAt(2))
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', event => {
                    $("#9val").html(value.charCodeAt(2))
                 }*/
 
-                
+
             }
             port.onReceiveError = error => {
                 console.log('Receive error: ' + error);
@@ -62,7 +62,8 @@ document.addEventListener('DOMContentLoaded', event => {
             connect();
         }
     });
-});
+
+
 
 
 
