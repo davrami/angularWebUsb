@@ -30,6 +30,7 @@ import { LEDComponent } from '../components/demos/LED/LED.component';
 import { PotenComponent } from '../components/demos/potenciometro/poten.component';
 import { SandboxComponent } from '../components/demos/sandbox/sandbox.component';
 import { PongComponent } from '../components/demos/pong/pong.component';
+import { LCDComponent } from '../components/demos/LCD/LCD.component';
 
 declare var require: any;
 export function highchartsFactory() {
@@ -38,7 +39,7 @@ export function highchartsFactory() {
 
 @NgModule({
   declarations: [AppComponent, AboutComponent, HomeComponent, exampleDemoComponent, WikiComponent, FAQComponent,
-    getStartedComponent, LEDComponent, PotenComponent, SandboxComponent, PongComponent
+    getStartedComponent, LEDComponent, PotenComponent, SandboxComponent, PongComponent, LCDComponent
   ],
 
   imports: [

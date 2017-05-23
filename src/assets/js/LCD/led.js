@@ -1,30 +1,46 @@
 var port;
-var value;
-var posiciones;
-var pPlayer1;
-var pPlayer2;
+
 let textEncoder = new TextEncoder();
+
+console.log('Ready.');
 
 let connectButton = document.querySelector('#connect');
 
+
+let led = "L"
+
+
+$(document).on("click", "#led", function () {
+    if (led == "H") {
+        led = "L"
+        $(this).textContent = 'Led Off';
+    } else {
+        led = "H"
+        $(this).textContent = 'Led On';
+
+    }
+    if (port !== undefined) {
+        port.send(textEncoder.encode(led)).catch(error => {
+            console.log('Send error: ' + error);
+        });
+    }
+});
+
+
+
+
+
 function connect() {
     console.log('Connecting to ' + port.device_.productName + '...');
-
     port.connect().then(() => {
         console.log(port);
         console.log('Connected.');
         connectButton.textContent = 'Disconnect';
         port.onReceive = data => {
-            let textDecoder = new TextDecoder();
-            value = textDecoder.decode(data) + "";
-            posiciones = value.split("-");
-            pPlayer1 = posiciones[0].charCodeAt();
-            pPlayer2 = posiciones[1].charCodeAt();
 
-            if (p1 != undefined || p2 != undefined) {
-                p1.y = (270 * pPlayer1) / 100;
-                p2.y = (270 * pPlayer2) / 100;
-            }
+            let textDecoder = new TextDecoder();
+            console.log(textDecoder.decode(data));
+
         }
         port.onReceiveError = error => {
             console.log('Receive error: ' + error);
@@ -47,7 +63,7 @@ connectButton.addEventListener('click', function () {
         });
     }
 });
-
+/*
 serial.getPorts().then(ports => {
     if (ports.length == 0) {
         console.log('No devices found.');
@@ -56,5 +72,17 @@ serial.getPorts().then(ports => {
         connect();
     }
 });
+*/
 
 
+$(document).on("click", "#send", function () {
+    var text = document.getElementById('text').value;
+    console.log(text);
+    $(".lcd").html(text);
+
+    if (port !== undefined) {
+        port.send(textEncoder.encode(text)).catch(error => {
+            console.log('Send error: ' + error);
+        });
+    }
+});

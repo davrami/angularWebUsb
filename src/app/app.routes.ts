@@ -10,7 +10,7 @@ import { LEDComponent } from '../components/demos/LED/LED.component';
 import { PotenComponent } from '../components/demos/potenciometro/poten.component';
 import { SandboxComponent } from '../components/demos/sandbox/sandbox.component';
 import { PongComponent } from '../components/demos/pong/pong.component';
-
+import { LCDComponent } from '../components/demos/LCD/LCD.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -22,6 +22,7 @@ export const routes: Routes = [
   { path: 'LED', component: LEDComponent },
   { path: 'poten', component: PotenComponent },
   { path: 'sandbox', component: SandboxComponent },
-  { path: 'pong', component: PongComponent }
+  { path: 'pong', component: PongComponent },
+  { path: 'LCD', component: LCDComponent }
 
 ];
