@@ -3,11 +3,39 @@
         <div class="content">
             <p>Sandbox para live conding
             </p>
-            <h4 class="titles2">Hardware</h4>
-
+            <h4 class="titles2">Cheat Sheet</h4>
+            <p>
+                Este sandbox te permite testear determinadas entradas y salidas del la placa.<br> Resumen de ordenes:
+            </p>
             <ul>
-                <li>Arduino Leonardo</li>
+                <li><span class="coderesult">port.send(textEncoder.encode('....'))</span> : Enviaremos a la placa un stream de
+                    bytes mediante la conexión serial WebUsb.</li>
+                <li>
+                    <span class="coderesult">port.send(textEncoder.encode('A0'))</span> : Petición de lectura de la entrada
+                    analógica A0, nos devolverá su valor en volts.
+                </li>
+                <li>
+                    <span class="coderesult">port.send(textEncoder.encode('13H'))</span> : La placa pondrá el pin
+                    <b>13</b> como <b>HIGH</b>. Si el valor queremos que sea <b>LOW</b> deberemos poner '<b>13L</b> ' por
+                    ejemplo.
+                </li>
             </ul>
+
+            <hr>
+            <h4 class="titles2">Entradas/Salidas disponibles</h4>
+
+            <p>
+                Las entradas y salidas disponibles en este sandbox son las siguientes:
+            </p>
+            <ul>
+                <li>A0</li>
+                <li>A1</li>
+                <li>10</li>
+                <li>11</li>
+                <li>12</li>
+                <li>13</li>
+            </ul>
+
         </div>
     </md-tab>
 
@@ -20,8 +48,8 @@
 
             </div>
             <div class="row">
-                <div class="col-md-6" style="max-height:400px; overflow-y: scroll;">
-                    <!--<section [innerHTML]="sampleContent1" highlight-js-content=".highlight"></section>-->
+                <div class="col-md-12" style="max-height:400px; overflow-y: scroll;">
+                    <section [innerHTML]="codeSandboxArduino" highlight-js-content=".highlight"></section>
                 </div>
             </div>
         </div>
@@ -34,24 +62,28 @@
 
         <div class="content">
             <div class="row">
-                    <div class="col-md-6">
+                <div class="col-md-6">
 
 
-                        <md-input-container style="min-width:100%;">
-                            <textarea mdInput mdTextareaAutosize placeholder="Code..." [(ngModel)]="textToSend"></textarea>
-                        </md-input-container>
+                    <md-input-container style="min-width:100%;">
+                        <textarea mdInput mdTextareaAutosize placeholder="Code..." [(ngModel)]="textToSend">
+                               
+                            </textarea>
+                    </md-input-container>
 
+                </div>
+
+                <div class="col-md-6">
+
+                    <div class="lcd" id="response">
+                        Waiting...
                     </div>
-
-                    <div class="col-md-6">
-
-                        Response...
-                    </div>
+                </div>
 
 
-                    <br> {{text}}
-                    <br>
-                    <button md-raised-button color="accent" (click)="send()"> Send </button>
+                <br> {{text}}
+                <br>
+                <button md-raised-button color="accent" (click)="send()"> Send </button>
             </div>
 
 

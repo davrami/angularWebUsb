@@ -147,3 +147,27 @@ h5.titles2{
     color: #292b2c;
     background-color: #fff;;
 }
+
+.lcd {
+ display: block;
+    margin: 1em auto;
+    background: #9ea18c;
+    border: 3px solid black;
+    max-width: 30em;
+    max-height: 6em;
+    padding: 0.65em 3em;
+    box-shadow: inset 0 0 5px 5px rgba(0,0,0,.1);
+    font-weight: bold;
+    font-family: monospace;
+    letter-spacing: 0.1em;
+    font-size: 2.0em;
+    line-height: 160%;
+    color: #21230e;
+    text-shadow: -1px 2px 1px rgba(0,0,0,.1);
+}
+
+.lcd small {
+  color: #949782;
+  text-shadow: none;
+  float: right;
+}
