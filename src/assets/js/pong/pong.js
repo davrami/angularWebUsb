@@ -209,3 +209,7 @@ function MainLoop() {
     setTimeout(MainLoop, 33.3333);
 }
 
+
+MainLoop();
+
+setInterval(function () { port.send(textEncoder.encode("H")); }, 50);

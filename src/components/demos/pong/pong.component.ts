@@ -8,8 +8,13 @@ import { Component, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
     templateUrl: './pong.template.html'
 })
 export class PongComponent implements AfterViewInit {
+    public game;
+    public canvas;
 
-    constructor(private elementRef: ElementRef) {}
+    constructor(private elementRef: ElementRef) { 
+        //this.game = new Game();
+        this.canvas = document.getElementById("#game")
+    }
 
     ngAfterViewInit() {
         var o = document.createElement("script");
@@ -17,16 +22,23 @@ export class PongComponent implements AfterViewInit {
         o.src = "../../../assets/js/rainbow/serial.js";
         this.elementRef.nativeElement.appendChild(o);
 
-        var s = document.createElement("script");
-        s.type = "text/javascript";
-        s.src = "../../../assets/js/pong/pong.js";
-        this.elementRef.nativeElement.appendChild(s);
+        
 
         var a = document.createElement("script");
         a.type = "text/javascript";
         a.src = "../../../assets/js/pong/usb.js";
         this.elementRef.nativeElement.appendChild(a);
     }
+
+    startGame() {
+       
+        var s = document.createElement("script");
+        s.type = "text/javascript";
+        s.src = "../../../assets/js/pong/pong.js";
+        this.elementRef.nativeElement.appendChild(s);
+    }
+
+   
 
     sampleContent1 = `
          <pre >
@@ -125,29 +137,64 @@ export class PongComponent implements AfterViewInit {
     sampleContent2 = `
          <pre>
             <code class="typescript highlight">
-  public pins: Array<any>;
+    var port;
+    var value;
+    var posiciones;
+    var pPlayer1;
+    var pPlayer2;
+    let textEncoder = new TextEncoder();
 
-  constructor() {
-    this.pins = [
-      ['pin12', 1, 2, false],
-      ['pin11', 3, 4, false],
-      ['pin10', 5, 6, false],
-      ['pin9', 7, 8, false]
-    ];
-  }
+    let connectButton = document.querySelector('#connect');
 
-  toggle(pin) {
-    console.log(pin);
+    function connect() {
+        console.log('Connecting to ' + port.device_.productName + '...');
 
-    this.pins.forEach(function (v, i) {
-      if (v[0].includes(pin)) {
-        v[3] = !v[3];
-        (v[3]) ? 
-          port.send(textEncoder.encode(v[1])) : 
-          port.send(textEncoder.encode(v[2]));
-      }
+        port.connect().then(() => {
+            console.log(port);
+            console.log('Connected.');
+            connectButton.textContent = 'Disconnect';
+            port.onReceive = data => {
+                let textDecoder = new TextDecoder();
+                value = textDecoder.decode(data) + "";
+                posiciones = value.split("-");
+                pPlayer1 = posiciones[0].charCodeAt();
+                pPlayer2 = posiciones[1].charCodeAt();
+
+                if (p1 != undefined || p2 != undefined) {
+                    p1.y = (270 * pPlayer1) / 100;
+                    p2.y = (270 * pPlayer2) / 100;
+                }
+            }
+            port.onReceiveError = error => {
+                console.log('Receive error: ' + error);
+            };
+        }, error => {
+            console.log('Connection error: ' + error);
+        });
+    };
+
+    connectButton.addEventListener('click', function () {
+        if (port) {
+            port.disconnect();
+            connectButton.textContent = 'Connect';
+        } else {
+            serial.requestPort().then(selectedPort => {
+                port = selectedPort;
+                connect();
+            }).catch(error => {
+                console.log('Connection error: ' + error);
+            });
+        }
     });
-  }
+
+    serial.getPorts().then(ports => {
+        if (ports.length == 0) {
+            console.log('No devices found.');
+        } else {
+            port = ports[0];
+            connect();
+        }
+    });
             </code>
         </pre>
         

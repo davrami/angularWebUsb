@@ -1,0 +1,68 @@
+<md-tab-group>
+    <md-tab label="Overview">
+        <div class="content">
+            <p>Estableciendo una conexión con la placa vamos a hacer un buffer para enviar texto y que se muestren en una pantalla
+                <a class="link" href="/wiki">LCD</a>.
+            </p>
+            <h4 class="titles2">Hardware</h4>
+
+            <ul>
+                <li>Arduino Leonardo</li>
+                <li>1x Pantalla LCD 1602A</li>
+                <li>1x Potenciómetro</li>
+            </ul>
+
+            <h4 class="titles2">Circuito</h4>
+            <img src="../../../assets/schemas/lcdSketch.png">
+        </div>
+    </md-tab>
+
+
+    <md-tab label="Code">
+        <div class="content">
+            <div class="row">
+                <div class="col-md-6">
+                    Arduino
+                </div>
+                <div class="col-md-6">
+                    TypeScript
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6" style="max-height:400px; overflow-y: scroll;">
+                    <section [innerHTML]="sampleContent1" highlight-js-content=".highlight"></section>
+                </div>
+                <div class="col-md-6" style="max-height:400px; overflow-y: scroll;">
+                    <section [innerHTML]="sampleContent2" highlight-js-content=".highlight"></section>
+                </div>
+            </div>
+        </div>
+    </md-tab>
+
+
+    <md-tab label="Example">
+        <div class="content">
+            <h4 class="titles2">Liquid Crystal Display<span><md-icon class="link">screen_share</md-icon></span></h4>
+            <p>
+                <button id="led" value="H" class="btn btn-default">Led On</button>
+            </p>
+            <div class="col-md-6" style="float: left;">
+                <md-input-container class="demo-full-width">
+                    <input type="text" id="text" mdInput #characterCountTextareaHintExample placeholder="Character count (13 max)" maxLength="13" value="WebUSB Rocks!">
+                    <md-hint align="end" aria-live="polite">
+                        {{characterCountTextareaHintExample.value.length}} / 13
+                    </md-hint>
+                </md-input-container>
+                <button id="send" class="button"><span class="button__inner">Send</span></button>
+            </div>
+            <div class="col-md-6" style="float: right;">
+                <div class="lcd">
+                    WebUSB Rocks!
+                    <small>120</small>
+                </div>
+            </div>
+
+        </div>
+
+    </md-tab>
+</md-tab-group>
