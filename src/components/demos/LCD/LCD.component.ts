@@ -1,9 +1,13 @@
 import { Component, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
+import { slideInOutAnimation } from '../../../assets/animations/fade-in.animation';
+
 
 @Component({
     selector: 'app-LCD',
     styleUrls: ['./LCD.style.css'],
-    templateUrl: './LCD.template.html'
+    templateUrl: './LCD.template.html',
+    animations: [slideInOutAnimation],
+    host: { '[@slideInOutAnimation]': '' }
 })
 export class LCDComponent implements AfterViewInit {
 
@@ -12,7 +16,7 @@ export class LCDComponent implements AfterViewInit {
     ngAfterViewInit() {
         var o = document.createElement("script");
         o.type = "text/javascript";
-        o.src = "../../../assets/js/rainbow/serial.js";
+        o.src = "../../../assets/js/serial/serial.js";
         this.elementRef.nativeElement.appendChild(o);
 
         var s = document.createElement("script");
@@ -52,7 +56,7 @@ export class LCDComponent implements AfterViewInit {
       ;
     }
     Serial.begin(9600);
-    Serial.write("Sketch begins.\r\n> ");
+    Serial.write("Sketch begins.\r\n ");
     Serial.flush();
     pinMode(ledPin12, OUTPUT);
     pinMode(ledPin11, OUTPUT);
@@ -106,7 +110,7 @@ export class LCDComponent implements AfterViewInit {
         Serial.write("9");
         Serial.write(val);
       }else {
-        for (int thisPin = 0; thisPin < pinCount; thisPin++) {
+        for (int thisPin = 0; thisPin &lt pinCount; thisPin++) {
           digitalWrite(ledPins[thisPin], HIGH);
           val = digitalRead(ledPins[thisPin]);   // read the input pin
           Serial.write(val);        

@@ -1,63 +1,51 @@
 import { Component, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-
-
+import { slideInOutAnimation } from '../../../assets/animations/fade-in.animation';
 
 @Component({
-    moduleId: module.id,
-    selector: 'input-demo',
-    templateUrl: './sandbox.template.html',
-    styleUrls: ['./sandbox.style.css'],
+  moduleId: module.id,
+  selector: 'input-demo',
+  templateUrl: './sandbox.template.html',
+  styleUrls: ['./sandbox.style.css'],
+  animations: [slideInOutAnimation],
+  host: { '[@slideInOutAnimation]': '' }
 })
 export class SandboxComponent implements AfterViewInit {
 
-    textToSend: string = "port.send(textEncoder.encode('13H'))";
-    public pins: Array<any>;
+  textToSend: string = "port.send(textEncoder.encode('13H'))";
+  public pins: Array<any>;
 
 
-    constructor(private elementRef: ElementRef) {
-        this.pins = [
-            ['pin12', 1, 2, false],
-            ['pin11', 3, 4, false],
-            ['pin10', 5, 6, false],
-            ['pin9', 7, 8, false]
-        ];
-    }
+  constructor(private elementRef: ElementRef) {
+    this.pins = [
+      ['pin12', 1, 2, false],
+      ['pin11', 3, 4, false],
+      ['pin10', 5, 6, false],
+      ['pin9', 7, 8, false]
+    ];
+  }
 
-    ngAfterViewInit() {
-        var o = document.createElement("script");
-        o.type = "text/javascript";
-        o.src = "../../../assets/js/serial/serial.js";
-        this.elementRef.nativeElement.appendChild(o);
+  ngAfterViewInit() {
+    var o = document.createElement("script");
+    o.type = "text/javascript";
+    o.src = "../../../assets/js/serial/serial.js";
+    this.elementRef.nativeElement.appendChild(o);
 
-        var s = document.createElement("script");
-        s.type = "text/javascript";
-        s.src = "../../../assets/js/sandbox/sandbox.js";
-        this.elementRef.nativeElement.appendChild(s);
-    }
+    var s = document.createElement("script");
+    s.type = "text/javascript";
+    s.src = "../../../assets/js/sandbox/sandbox.js";
+    this.elementRef.nativeElement.appendChild(s);
+  }
 
 
-    send = function () {
-        var code = this.textToSend;
-        console.log("executing code: " + code);
-        var executeCode = new Function(code);
-        executeCode();
-    }
+  send = function () {
+    var code = this.textToSend;
+    console.log("executing code: " + code);
+    var executeCode = new Function(code);
+    executeCode();
+  }
 
-    // setInterval(function () {
-    //     if (i == 15){ i = 10;}
-    //     setTimeout(function () {
-    //         port.send(textEncoder.encode(i + 'H'));
-    //         console.log(i+"H")
-    //     }, 1000);
-    //     setTimeout(function () {
-    //         port.send(textEncoder.encode(i + 'L'));
-    //         i++
-    //         console.log(i+"L")
-    //     }, 2000);
-
-    // }, 3000);
-    codeSandboxArduino = `
+  codeSandboxArduino = `
     <pre >
             <code class="arduino highlight">
 #include &ltWebUSB.h&gt

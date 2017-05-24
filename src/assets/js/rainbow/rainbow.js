@@ -2,9 +2,7 @@ var port;
 var value;
 let textEncoder = new TextEncoder();
 
-
 let connectButton = document.querySelector('#connect');
-
 
 function connect() {
     console.log('Connecting to ' + port.device_.productName + '...');
@@ -15,22 +13,8 @@ function connect() {
         connectButton.textContent = 'Disconnect';
         port.onReceive = data => {
             let textDecoder = new TextDecoder();
-
             console.log("Recieved: " + textDecoder.decode(data).charCodeAt(2));
-
             value = textDecoder.decode(data) + "";
-            /*
-            if(value.includes("12")){
-                $("#12val").html(value.charCodeAt(2))
-            }else if(value.includes("11")){
-                $("#11val").html(value.charCodeAt(2))
-            }else if(value.includes("10")){
-                $("#10val").html(value.charCodeAt(2))
-            }else {
-               $("#9val").html(value.charCodeAt(2))
-            }*/
-
-
         }
         port.onReceiveError = error => {
             console.log('Receive error: ' + error);

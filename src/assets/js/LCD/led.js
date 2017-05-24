@@ -1,14 +1,8 @@
 var port;
-
 let textEncoder = new TextEncoder();
-
 console.log('Ready.');
-
 let connectButton = document.querySelector('#connect');
-
-
 let led = "L"
-
 
 $(document).on("click", "#led", function () {
     if (led == "H") {
@@ -25,9 +19,6 @@ $(document).on("click", "#led", function () {
         });
     }
 });
-
-
-
 
 
 function connect() {
@@ -63,16 +54,6 @@ connectButton.addEventListener('click', function () {
         });
     }
 });
-/*
-serial.getPorts().then(ports => {
-    if (ports.length == 0) {
-        console.log('No devices found.');
-    } else {
-        port = ports[0];
-        connect();
-    }
-});
-*/
 
 
 $(document).on("click", "#send", function () {

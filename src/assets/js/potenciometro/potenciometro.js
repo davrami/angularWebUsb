@@ -5,9 +5,7 @@ var valueTradcPor;
 var valueTradcVol;
 let textEncoder = new TextEncoder();
 
-
 let connectButton = document.querySelector('#connect');
-
 
 function connect() {
     console.log('Connecting to ' + port.device_.productName + '...');

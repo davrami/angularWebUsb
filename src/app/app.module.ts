@@ -12,7 +12,6 @@ import 'hammerjs';
 //Hightlightjs
 import { HighlightJsModule, HighlightJsService } from 'angular2-highlight-js';
 
-
 //Routing
 import { RouterModule } from '@angular/router';
 import { routes } from './app.routes';
@@ -22,7 +21,6 @@ import { AboutComponent } from '../components/about/about.component';
 import { HomeComponent } from '../components/home/home.component';
 import { exampleDemoComponent } from '../components/exampleDemo/exampleDemo.component';
 import { WikiComponent } from '../components/wiki/wiki.component';
-import { FAQComponent } from '../components/FAQ/FAQ.component';
 import { getStartedComponent } from '../components/getStarted/getStarted.component';
 
 //Demos
@@ -38,7 +36,7 @@ export function highchartsFactory() {
 }
 
 @NgModule({
-  declarations: [AppComponent, AboutComponent, HomeComponent, exampleDemoComponent, WikiComponent, FAQComponent,
+  declarations: [AppComponent, AboutComponent, HomeComponent, exampleDemoComponent, WikiComponent,
     getStartedComponent, LEDComponent, PotenComponent, SandboxComponent, PongComponent, LCDComponent
   ],
 

@@ -1,29 +1,32 @@
 import { Component, AfterViewInit, ElementRef } from '@angular/core';
 import { MdSnackBar } from '@angular/material';
+import { slideInOutAnimation } from '../../../assets/animations/fade-in.animation';
 
 
 @Component({
-  selector: 'app-poten',
-  templateUrl: './poten.template.html',
-  styleUrls: ['./poten.style.css'],
+    selector: 'app-poten',
+    templateUrl: './poten.template.html',
+    styleUrls: ['./poten.style.css'],
+    animations: [slideInOutAnimation],
+    host: { '[@slideInOutAnimation]': '' }
 })
 export class PotenComponent implements AfterViewInit {
-  constructor(private elementRef: ElementRef) { };
+    constructor(private elementRef: ElementRef) { };
 
 
-  ngAfterViewInit() {
-    var o = document.createElement("script");
-    o.type = "text/javascript";
-    o.src = "../../../assets/js/rainbow/serial.js";
-    this.elementRef.nativeElement.appendChild(o);
+    ngAfterViewInit() {
+        var o = document.createElement("script");
+        o.type = "text/javascript";
+        o.src = "../../../assets/js/serial/serial.js";
+        this.elementRef.nativeElement.appendChild(o);
 
-    var s = document.createElement("script");
-    s.type = "text/javascript";
-    s.src = "../../../assets/js/potenciometro/potenciometro.js";
-    this.elementRef.nativeElement.appendChild(s);
-  }
+        var s = document.createElement("script");
+        s.type = "text/javascript";
+        s.src = "../../../assets/js/potenciometro/potenciometro.js";
+        this.elementRef.nativeElement.appendChild(s);
+    }
 
-  sampleContent1 = `
+    sampleContent1 = `
          <pre >
             <code class="arduino highlight">
   #include &ltWebUSB.h&gt
@@ -48,7 +51,7 @@ export class PotenComponent implements AfterViewInit {
       ;
     }
     Serial.begin(9600);
-    Serial.write("Sketch begins.\r\n> ");
+    Serial.write("Sketch begins.\r\n");
     Serial.flush();
   }
   
@@ -79,7 +82,7 @@ export class PotenComponent implements AfterViewInit {
         
         `;
 
-  sampleContent2 = `
+    sampleContent2 = `
          <pre>
             <code class="typescript highlight">
 var port;
@@ -96,11 +99,11 @@ let connectButton = document.querySelector('#connect');
 function connect() {
     console.log('Connecting to ' + port.device_.productName + '...');
 
-    port.connect().then(() => {
+    port.connect().then(() =&gt {
         console.log(port);
         console.log('Connected.');
         connectButton.textContent = 'Disconnect';
-        port.onReceive = data => {
+        port.onReceive = data =&gt {
             let textDecoder = new TextDecoder();
             value = textDecoder.decode(data) + "";
 
@@ -113,10 +116,10 @@ function connect() {
             }
 
         }
-        port.onReceiveError = error => {
+        port.onReceiveError = error =&gt {
             console.log('Receive error: ' + error);
         };
-    }, error => {
+    }, error =&gt {
         console.log('Connection error: ' + error);
     });
 };
@@ -126,16 +129,16 @@ connectButton.addEventListener('click', function () {
         port.disconnect();
         connectButton.textContent = 'Connect';
     } else {
-        serial.requestPort().then(selectedPort => {
+        serial.requestPort().then(selectedPort =&gt {
             port = selectedPort;
             connect();
-        }).catch(error => {
+        }).catch(error =&gt {
             console.log('Connection error: ' + error);
         });
     }
 });
 
-serial.getPorts().then(ports => {
+serial.getPorts().then(ports =&gt {
     if (ports.length == 0) {
         console.log('No devices found.');
     } else {
@@ -199,8 +202,8 @@ function porChart() {
         },
         tooltip: {
             formatter: function () {
-                return '<b>' + this.series.name + '</b><br/>' +
-                    Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) + '<br/>' +
+                return '&ltb&gt' + this.series.name + '&lt/b&gt&ltbr/&gt' +
+                    Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) + '&ltbr/&gt' +
                     Highcharts.numberFormat(this.y, 2);
             }
         },
@@ -218,7 +221,7 @@ function porChart() {
                     time = (new Date()).getTime(),
                     i;
 
-                for (i = -19; i <= 0; i += 1) {
+                for (i = -19; i &lt= 0; i += 1) {
                     data.push({
                         x: time + i * 1000,
                         y: 0
@@ -274,8 +277,8 @@ function Voltchart() {
         },
         tooltip: {
             formatter: function () {
-                return '<b>' + this.series.name + '</b><br/>' +
-                    Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) + '<br/>' +
+                return '&ltb&gt' + this.series.name + '&lt/b&gt&ltbr/&gt' +
+                    Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) + '&ltbr/&gt' +
                     Highcharts.numberFormat(this.y, 2);
             }
         },
@@ -293,7 +296,7 @@ function Voltchart() {
                     time = (new Date()).getTime(),
                     i;
 
-                for (i = -19; i <= 0; i += 1) {
+                for (i = -19; i &lt= 0; i += 1) {
                     data.push({
                         x: time + i * 1000,
                         y: 0

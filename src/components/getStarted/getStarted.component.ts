@@ -1,12 +1,15 @@
 import { Component, ElementRef } from '@angular/core';
 import { HighlightJsService } from 'angular2-highlight-js';
 import * as Highcharts from 'highcharts';
+import { slideInOutAnimation } from '../../assets/animations/fade-in.animation';
 
 
 @Component({
   selector: 'app-getStarted',
   styleUrls: ['./getStarted.style.css'],
-  templateUrl: './getStarted.template.html'
+  templateUrl: './getStarted.template.html',
+  animations: [slideInOutAnimation],
+  host: { '[@slideInOutAnimation]': '' }
 })
 export class getStartedComponent {
 
@@ -41,7 +44,7 @@ void setup() {
     ;
   }
   Serial.begin(9600);
-  Serial.write("Sketch begins.\r\n> ");
+  Serial.write("Sketch begins.\r\n ");
   Serial.flush();
   pinMode(ledPin, OUTPUT);
 }
@@ -57,7 +60,7 @@ void loop() {
       Serial.write("\r\nTurning LED off.");
       digitalWrite(ledPin, LOW);
     }
-    Serial.write("\r\n> ");
+    Serial.write("\r\n ");
     Serial.flush();
   }
 }

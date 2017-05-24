@@ -5,3 +5,10 @@
 .example-spacer {
   flex: 1 1 auto;
 }
+
+i.fa{
+    color:white;    
+    bottom: 13px;
+    position: relative;
+    left: 30px;
+}

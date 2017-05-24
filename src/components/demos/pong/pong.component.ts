@@ -1,17 +1,19 @@
 import { Component, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
-//import '../../../assets/js/rainbow/rainbow.js';
-//import { port, textEncoder } from '../../../assets/js/rainbow/rainbow.js';
+import { slideInOutAnimation } from '../../../assets/animations/fade-in.animation';
+
 
 @Component({
     selector: 'app-pong',
     styleUrls: ['./pong.style.css'],
-    templateUrl: './pong.template.html'
+    templateUrl: './pong.template.html',
+    animations: [slideInOutAnimation],
+    host: { '[@slideInOutAnimation]': '' }
 })
 export class PongComponent implements AfterViewInit {
     public game;
     public canvas;
 
-    constructor(private elementRef: ElementRef) { 
+    constructor(private elementRef: ElementRef) {
         //this.game = new Game();
         this.canvas = document.getElementById("#game")
     }
@@ -19,10 +21,10 @@ export class PongComponent implements AfterViewInit {
     ngAfterViewInit() {
         var o = document.createElement("script");
         o.type = "text/javascript";
-        o.src = "../../../assets/js/rainbow/serial.js";
+        o.src = "../../../assets/js/serial/serial.js";
         this.elementRef.nativeElement.appendChild(o);
 
-        
+
 
         var a = document.createElement("script");
         a.type = "text/javascript";
@@ -31,14 +33,14 @@ export class PongComponent implements AfterViewInit {
     }
 
     startGame() {
-       
+
         var s = document.createElement("script");
         s.type = "text/javascript";
         s.src = "../../../assets/js/pong/pong.js";
         this.elementRef.nativeElement.appendChild(s);
     }
 
-   
+
 
     sampleContent1 = `
          <pre >
