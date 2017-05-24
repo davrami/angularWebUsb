@@ -18,9 +18,9 @@
   <a [routerLink]="['/']"> <i class="fa fa-usb fa-3x"></i></a>
   <span class="example-spacer"></span>
 
-  <button md-button (click)="toggleMove()" [routerLink]="['/']">Home</button>
-  <button md-button (click)="toggleMove()" [routerLink]="['getStarted']">Get Started</button>
-  <button md-button  (click)="toggleMove()" [mdMenuTriggerFor]="demos">Demos</button>
+  <button md-button  [routerLink]="['/']">Home</button>
+  <button md-button [routerLink]="['getStarted']">Get Started</button>
+  <button md-button   [mdMenuTriggerFor]="demos">Demos</button>
   <md-menu #demos="mdMenu">
     <button md-menu-item [routerLink]="['LED']">LED</button>
     <button md-menu-item [routerLink]="['LCD']">LCD</button>
@@ -28,8 +28,8 @@
     <button md-menu-item [routerLink]="['pong']">Pong</button>
     <button md-menu-item [routerLink]="['sandbox']">Sandbox</button>
   </md-menu>
-  <button md-button (click)="toggleMove()" [routerLink]="['wiki']">Wiki</button>
-  <button md-button (click)="toggleMove()" [routerLink]="['about']">About</button>
+  <button md-button  [routerLink]="['wiki']">Wiki</button>
+  <button md-button  [routerLink]="['about']">About</button>
 
   <span class="example-spacer"></span>
   <button id="connect" class="button__inner" (click)="openSnackBar()">Connect</button>
