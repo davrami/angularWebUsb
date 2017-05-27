@@ -12,7 +12,7 @@ import { slideInOutAnimation } from '../../../assets/animations/fade-in.animatio
 })
 export class SandboxComponent implements AfterViewInit {
 
-  textToSend: string = "port.send(textEncoder.encode('13H'))";
+  public textToSend: string = "port.send(textEncoder.encode('13H'))";
   public pins: Array<any>;
 
 
