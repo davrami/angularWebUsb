@@ -1,9 +1,15 @@
+//objeto serial.Port
 var port;
+//datos que recibe de la placa
 var value;
+//instancia del objeto TextEncoder
 let textEncoder = new TextEncoder();
-
+//botón conectar
 let connectButton = document.querySelector('#connect');
 
+/**
+ * función que se ejecuta cuando se conecta un dispositivo.
+ */
 function connect() {
     console.log('Connecting to ' + port.device_.productName + '...');
 
@@ -11,6 +17,10 @@ function connect() {
         console.log(port);
         console.log('Connected.');
         connectButton.textContent = 'Disconnect';
+        /**
+         * Método que se ejecuta cuando el navegador recibe datos 
+         * del dispositivo.
+         */
         port.onReceive = data => {
             let textDecoder = new TextDecoder();
             console.log("Recieved: " + textDecoder.decode(data));
@@ -21,6 +31,10 @@ function connect() {
             port.lastMessage = value;
 
         }
+        /**
+         * método que se ejecuta cuando el navegador recibe un error
+         * del dispositivo.
+         */
         port.onReceiveError = error => {
             console.log('Receive error: ' + error);
         };
@@ -29,7 +43,11 @@ function connect() {
     });
 };
 
+/**
+ * listener cuando se pulsa el boton de conectar
+ */
 connectButton.addEventListener('click', function () {
+    //si el dispositivo ya esta conectado se desconecta
     if (port) {
         port.disconnect();
         connectButton.textContent = 'Connect';
@@ -37,6 +55,10 @@ connectButton.addEventListener('click', function () {
             document.getElementById('response').innerHTML = "Connected";
         }
     } else {
+        /**
+         * si no esta conectado hace un requestPort y guarda dentro
+         * de port el objeto serial.Port
+         */
         serial.requestPort().then(selectedPort => {
             port = selectedPort;
             connect();
@@ -46,6 +68,9 @@ connectButton.addEventListener('click', function () {
     }
 });
 
+/**
+ * función que que se ejecuta cuando tiene un dipositivo paired.
+ */
 serial.getPorts().then(ports => {
     if (ports.length == 0) {
         console.log('No devices found.');

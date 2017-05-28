@@ -1,5 +1,5 @@
 /**
-   Sketch que permite jugar al pong.
+  * Sketch que permite jugar al pong.
 */
 
 #include <WebUSB.h>
