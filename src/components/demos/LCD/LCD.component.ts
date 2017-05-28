@@ -3,31 +3,41 @@ import { slideInOutAnimation } from '../../../assets/animations/fade-in.animatio
 
 
 @Component({
-    selector: 'app-LCD',
-    styleUrls: ['./LCD.style.css'],
-    templateUrl: './LCD.template.html',
-    animations: [slideInOutAnimation],
-    host: { '[@slideInOutAnimation]': '' }
+  selector: 'app-LCD',
+  styleUrls: ['./LCD.style.css'],
+  templateUrl: './LCD.template.html',
+  animations: [slideInOutAnimation],
+  host: { '[@slideInOutAnimation]': '' }
 })
 export class LCDComponent implements AfterViewInit {
+  /**
+   * constructor de LCDComponent
+   * @param elementRef 
+   */
+  constructor(private elementRef: ElementRef) { }
+  /**
+  * incluimos de forma dinámica los script que vamos a utilizar
+  */
+  ngAfterViewInit() {
+    var o = document.createElement("script");
+    o.type = "text/javascript";
+    o.src = "../../../assets/js/serial/serial.js";
+    this.elementRef.nativeElement.appendChild(o);
 
-    constructor(private elementRef: ElementRef) {}
+    var s = document.createElement("script");
+    s.type = "text/javascript";
+    s.src = "../../../assets/js/LCD/led.js";
+    this.elementRef.nativeElement.appendChild(s);
+  }
 
-    ngAfterViewInit() {
-        var o = document.createElement("script");
-        o.type = "text/javascript";
-        o.src = "../../../assets/js/serial/serial.js";
-        this.elementRef.nativeElement.appendChild(o);
-
-        var s = document.createElement("script");
-        s.type = "text/javascript";
-        s.src = "../../../assets/js/LCD/led.js";
-        this.elementRef.nativeElement.appendChild(s);
-    }
-
-    sampleContent1 = `
+  //codigo arduino
+  sampleContent1 = `
          <pre >
             <code class="arduino highlight">
+  /**
+  *Sketch que recibe un texto y lo muestra
+  *por un pantalla LCD.S
+  */
   #include &ltWebUSB.h&gt
 
   const WebUSBURL URLS[] = {
@@ -41,124 +51,106 @@ export class LCDComponent implements AfterViewInit {
 
   #define Serial WebUSBSerial
 
-  const int ledPin12 = 12;
-  const int ledPin11 = 11;
-  const int ledPin10 = 10;
-  const int ledPin9 = 9;
-  int ledPins[] = {
-    12, 11, 10, 9
-  };
-  int pinCount = 4;
-  int val=0;
+  /**
+   Instancia de los pins que vamos a utilitzar.
+  */
+  const int ledPin = 13;
 
   void setup() {
     while (!Serial) {
       ;
     }
     Serial.begin(9600);
-    Serial.write("Sketch begins.\r\n ");
+    Serial.write("Sketch begins.\r\n> ");
     Serial.flush();
-    pinMode(ledPin12, OUTPUT);
-    pinMode(ledPin11, OUTPUT);
-    pinMode(ledPin10, OUTPUT);
-    pinMode(ledPin9, OUTPUT);
+    /**
+       assignamos los pins como salida.
+    */
+    pinMode(ledPin, OUTPUT);
+    lcd.begin(16, 2);
   }
 
   void loop() {
+    //variable que guarda los datos que enviamos desde el navegador
+    int byte = "";
+
+    /**
+     * El loop estara constantemente pendiente que recibe datos.
+     * Cuando recibe un dato lo muestra por la pantalla.
+     */
     if (Serial && Serial.available()) {
-    
-      int byte = Serial.read();
-
-      if (byte == '1') {
-        digitalWrite(ledPin12, HIGH);
-        val = digitalRead(ledPin12);
-        Serial.write("12");
-        Serial.write(val); 
-      } else if (byte == '2') {
-        digitalWrite(ledPin12, LOW);
-        val = digitalRead(ledPin12);
-        Serial.write("12");
-        Serial.write(val); 
-      }else if (byte == '3') {
-        digitalWrite(ledPin11, HIGH);
-        val = digitalRead(ledPin11);
-        Serial.write("11");
-        Serial.write(val); 
-      }else if (byte == '4') {
-        digitalWrite(ledPin11, LOW);
-        val = digitalRead(ledPin11);
-        Serial.write("11");
-        Serial.write(val);
-      }else if (byte == '5') {
-        digitalWrite(ledPin10, HIGH);
-        val = digitalRead(ledPin10);
-        Serial.write("10");
-        Serial.write(val);
-      }else if (byte == '6') {
-        digitalWrite(ledPin10, LOW);
-        val = digitalRead(ledPin10);
-        Serial.write("10");
-        Serial.write(val);
-      }else if (byte == '7') {
-        digitalWrite(ledPin9, HIGH);
-        val = digitalRead(ledPin9);
-        Serial.write("9");
-        Serial.write(val);
-      }else if(byte== '8'){
-        digitalWrite(ledPin9, LOW);
-        val = digitalRead(ledPin9);
-        Serial.write("9");
-        Serial.write(val);
-      }else {
-        for (int thisPin = 0; thisPin &lt pinCount; thisPin++) {
-          digitalWrite(ledPins[thisPin], HIGH);
-          val = digitalRead(ledPins[thisPin]);   // read the input pin
-          Serial.write(val);        
-          delay(500);
-          digitalWrite(ledPins[thisPin], LOW);
-        }
-
-      
+      //limpia la pantall
+      lcd.clear();
+      //mueve el cursos a la posición 1,1
+      lcd.setCursor(1, 1);
+      while (Serial.available() > 0) {
+        byte = Serial.read();
+        lcd.write(byte);
       }
+      //cuando recibe H enciende el led 13
+      if (byte == 'H') {
+        Serial.write("\r\nTurning LED on.");
+        digitalWrite(ledPin, HIGH);
+      } else if (byte == 'L') {
+        //cuando recibe L apaga el LED 13
+        Serial.write("\r\nTurning LED off.");
+        digitalWrite(ledPin, LOW);
+      } else {
 
-    Serial.flush();
+      }
+      Serial.flush();
     }
-
-
   }
             </code>
         </pre>
         
         `;
-
-    sampleContent2 = `
+  //codigo script
+  sampleContent2 = `
          <pre>
             <code class="typescript highlight">
-  public pins: Array<any>;
+  /**
+   * evento que se ejecuta al pulsar el boton  #led
+   * envia (HIGH/LOW) para cambiar el estado del pin 13.
+   */
+  $(document).on("click", "#led", function () {
+      if (led == "H") {
+          led = "L"
+          $(this).textContent = 'Led Off';
+      } else {
+          led = "H"
+          $(this).textContent = 'Led On';
 
-  constructor() {
-    this.pins = [
-      ['pin12', 1, 2, false],
-      ['pin11', 3, 4, false],
-      ['pin10', 5, 6, false],
-      ['pin9', 7, 8, false]
-    ];
-  }
-
-  toggle(pin) {
-    console.log(pin);
-
-    this.pins.forEach(function (v, i) {
-      if (v[0].includes(pin)) {
-        v[3] = !v[3];
-        (v[3]) ? 
-          port.send(textEncoder.encode(v[1])) : 
-          port.send(textEncoder.encode(v[2]));
       }
-    });
-  }
+      if (port !== undefined) {
+          port.send(textEncoder.encode(led)).catch(error => {
+              console.log('Send error: ' + error);
+          });
+      }
+  });
             </code>
         </pre>
+
+        <pre>
+          <code class="typescript highlight">
+  /**
+   * Evento que se ejecuta cuando se pulsa el botón #send.
+   * Envia el texto del input y se lo envia al dispositivo.
+   */
+  $(document).on("click", "#send", function () {
+      var text = document.getElementById('text').value;
+      console.log(text);
+      $(".lcd").html(text);
+
+      if (port !== undefined) {
+          port.send(textEncoder.encode(text)).catch(error => {
+              console.log('Send error: ' + error);
+          });
+      }
+  });
+          </code>
+        </pre>
+
         
         `;
 

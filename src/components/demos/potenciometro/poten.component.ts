@@ -11,9 +11,14 @@ import { slideInOutAnimation } from '../../../assets/animations/fade-in.animatio
     host: { '[@slideInOutAnimation]': '' }
 })
 export class PotenComponent implements AfterViewInit {
+    /**
+     * constructor de la clase PotenComponent
+     */
     constructor(private elementRef: ElementRef) { };
 
-
+    /**
+     * incluimos de forma dinámica los script que vamos a utilizar
+     */
     ngAfterViewInit() {
         var o = document.createElement("script");
         o.type = "text/javascript";
@@ -26,9 +31,14 @@ export class PotenComponent implements AfterViewInit {
         this.elementRef.nativeElement.appendChild(s);
     }
 
+    //codigo arduino
     sampleContent1 = `
          <pre >
             <code class="arduino highlight">
+ /**
+  * Sketch que hace una lectura de un potenciometro y lo envia
+  * al navegadr
+  */
   #include &ltWebUSB.h&gt
 
   const WebUSBURL URLS[] = {
@@ -42,272 +52,100 @@ export class PotenComponent implements AfterViewInit {
 
   #define Serial WebUSBSerial
 
-  const int analogPin = A0;
-  int value;      //variable que almacena la lectura analógica raw
-  int position;   //posicion del potenciometro en tanto por ciento
-  float voltage;
-  void setup() {
+    /**
+     * Instancia de los pins analogicos que vamos a utilitzar.
+     */
+    const int analogPin = A0;
+    int value;      //variable que almacena la lectura analógica raw
+    int position;   //posicion del potenciometro en tanto por ciento
+    float voltage;  //voltage que recibe el potenciometro
+    void setup() {
     while (!Serial) {
-      ;
+        ;
     }
     Serial.begin(9600);
-    Serial.write("Sketch begins.\r\n");
+    Serial.write("Sketch begins.\r\n> ");
     Serial.flush();
-  }
-  
-  void loop() {
-  
-    if (Serial && Serial.available()) {
-
-      value = analogRead(analogPin); // realizar la lectura analógica raw
-      position = map(value, 0, 1023, 0, 100);  // convertir a porcentaje
-
-      voltage = value*(5.0/1023.0); 
-    
-      int byte = Serial.read();
-      
-      if (byte == 'H') {
-        Serial.write("Por");
-        Serial.write(position);
-      }else if(byte == 'L'){
-        Serial.write("Vol");
-        Serial.write(voltage);
-      }
-      Serial.flush();
     }
+    
+    void loop() {
+        /**
+         * El loop estara constantemente pendiente que recibe datos.
+         */
+        if (Serial && Serial.available()) {
 
-  }
-            </code>
+            value = analogRead(analogPin); // realizar la lectura analógica raw
+            position = map(value, 0, 1023, 0, 100);  // convertir a porcentaje
+
+            voltage = value*(5.0/1023.0); //conversión en voltage
+        
+            int byte = Serial.read();
+            
+            if (byte == 'P') {
+            //cuando recibe una P envia la posición del potenciometro
+            Serial.write("Por");//envia Por+(valor)
+            Serial.write(position);
+            }else if(byte == 'V'){
+            //cuando recibe una V envia los voltages qu recibe el potenciómetro
+            Serial.write("Vol");//enviar Vol+(valor)
+            Serial.write(voltage);
+            }
+            Serial.flush();
+        }
+
+    }
+                </code>
         </pre>
         
         `;
 
+    //codigo script
     sampleContent2 = `
          <pre>
             <code class="typescript highlight">
-var port;
-var value;
-var valueTradc;
-var valueTradcPor;
-var valueTradcVol;
-let textEncoder = new TextEncoder();
+    /**
+     * metodo que se ejecuta cuando el navegador recibe datos 
+     * del dispositio.
+     */
+    port.onReceive = data => {
+        let textDecoder = new TextDecoder();
+        value = textDecoder.decode(data) + "";
 
-
-let connectButton = document.querySelector('#connect');
-
-
-function connect() {
-    console.log('Connecting to ' + port.device_.productName + '...');
-
-    port.connect().then(() =&gt {
-        console.log(port);
-        console.log('Connected.');
-        connectButton.textContent = 'Disconnect';
-        port.onReceive = data =&gt {
-            let textDecoder = new TextDecoder();
-            value = textDecoder.decode(data) + "";
-
-            if (value.indexOf("Por")) {
-                valueTradcVol = value.substr(3, value.length - 1);
-                $("#valVolt").html(valueTradcVol.charCodeAt());
-            } else if (value.indexOf("Vol")) {
-                valueTradcPor = value.substr(3, value.length - 1);
-                $("#valPor").html(valueTradcPor.charCodeAt());
-            }
-
+        if (value.indexOf("Por")) {
+            /**
+             * cuando recibe datos con la palabra Por
+             * los procesa y lo muestra en el navegador
+             */
+            valueTradcVol = value.substr(3, value.length - 1);
+            $("#valVolt").html(valueTradcVol.charCodeAt());
+        } else if (value.indexOf("Vol")) {
+            /**
+             * cuando recibe datos con la palabra Vol
+             * los procesa y lo muestra en el navegador
+             */
+            valueTradcPor = value.substr(3, value.length - 1);
+            $("#valPor").html(valueTradcPor.charCodeAt());
         }
-        port.onReceiveError = error =&gt {
-            console.log('Receive error: ' + error);
-        };
-    }, error =&gt {
-        console.log('Connection error: ' + error);
-    });
-};
-
-connectButton.addEventListener('click', function () {
-    if (port) {
-        port.disconnect();
-        connectButton.textContent = 'Connect';
-    } else {
-        serial.requestPort().then(selectedPort =&gt {
-            port = selectedPort;
-            connect();
-        }).catch(error =&gt {
-            console.log('Connection error: ' + error);
-        });
     }
-});
+            </code>
+        </pre>
 
-serial.getPorts().then(ports =&gt {
-    if (ports.length == 0) {
-        console.log('No devices found.');
-    } else {
-        port = ports[0];
-        connect();
-    }
-});
-
-
-$(document).on("click", "#send", function () {
-    setInterval(function () { port.send(textEncoder.encode("H")); }, 500);
-    porChart();
+        <pre>
+            <code class="typescript highlight">
+    /**
+     * Evento que se ejecuta cuando se pulsa el botón #send.
+     * Ejecuta un setInterval pidiendo la posición y el voltage.
+     * Ademas inserta dos graficos para representar estos valores.
+     */
+    $(document).on("click", "#send", function () {
+        setInterval(function () { port.send(textEncoder.encode("P")); }, 500);
+        porChart();
 
 
-    setInterval(function () { port.send(textEncoder.encode("L")); }, 500);
-    Voltchart();
-});
-
-function porChart() {
-    Highcharts.setOptions({
-        global: {
-            useUTC: false
-        }
+        setInterval(function () { port.send(textEncoder.encode("V")); }, 500);
+        Voltchart();
     });
 
-    Highcharts.chart('container', {
-        chart: {
-            type: 'spline',
-            animation: Highcharts.svg, // don't animate in old IE
-            marginRight: 10,
-            events: {
-                load: function () {
-
-                    // set up the updating of the chart each second
-                    var series = this.series[0];
-                    setInterval(function () {
-                        var x = (new Date()).getTime(), // current time
-                            y = valueTradcPor.charCodeAt();
-
-                        series.addPoint([x, y], true, true);
-                    }, 1000);
-                }
-            }
-        },
-        title: {
-            text: 'Porcentaje Live Data'
-        },
-        xAxis: {
-            type: 'datetime',
-            tickPixelInterval: 150
-        },
-        yAxis: {
-            title: {
-                text: 'Porcentages'
-            },
-            plotLines: [{
-                value: 0,
-                width: 100,
-                color: '#808080'
-            }]
-        },
-        tooltip: {
-            formatter: function () {
-                return '&ltb&gt' + this.series.name + '&lt/b&gt&ltbr/&gt' +
-                    Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) + '&ltbr/&gt' +
-                    Highcharts.numberFormat(this.y, 2);
-            }
-        },
-        legend: {
-            enabled: false
-        },
-        exporting: {
-            enabled: false
-        },
-        series: [{
-            name: '%',
-            data: (function () {
-                // generate an array of random data
-                var data = [],
-                    time = (new Date()).getTime(),
-                    i;
-
-                for (i = -19; i &lt= 0; i += 1) {
-                    data.push({
-                        x: time + i * 1000,
-                        y: 0
-                    });
-                }
-                return data;
-            }())
-        }]
-    });
-}
-
-function Voltchart() {
-    Highcharts.setOptions({
-        global: {
-            useUTC: false
-        }
-    });
-
-    Highcharts.chart('container2', {
-        chart: {
-            type: 'spline',
-            animation: Highcharts.svg, // don't animate in old IE
-            marginRight: 10,
-            events: {
-                load: function () {
-
-                    // set up the updating of the chart each second
-                    var series = this.series[0];
-                    setInterval(function () {
-                        var x = (new Date()).getTime(), // current time
-                            y = valueTradcVol.charCodeAt()
-                        series.addPoint([x, y], true, true);
-                    }, 1000);
-                }
-            }
-        },
-        title: {
-            text: 'Voltaje Live data'
-        },
-        xAxis: {
-            type: 'datetime',
-            tickPixelInterval: 150
-        },
-        yAxis: {
-            title: {
-                text: 'Value'
-            },
-            plotLines: [{
-                value: 0,
-                width: 5,
-                color: '#808080'
-            }]
-        },
-        tooltip: {
-            formatter: function () {
-                return '&ltb&gt' + this.series.name + '&lt/b&gt&ltbr/&gt' +
-                    Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) + '&ltbr/&gt' +
-                    Highcharts.numberFormat(this.y, 2);
-            }
-        },
-        legend: {
-            enabled: false
-        },
-        exporting: {
-            enabled: false
-        },
-        series: [{
-            name: 'V',
-            data: (function () {
-                // generate an array of random data
-                var data = [],
-                    time = (new Date()).getTime(),
-                    i;
-
-                for (i = -19; i &lt= 0; i += 1) {
-                    data.push({
-                        x: time + i * 1000,
-                        y: 0
-                    });
-                }
-                return data;
-            }())
-        }]
-    });
-
-}
             </code>
         </pre>
         

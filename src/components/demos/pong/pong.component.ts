@@ -10,30 +10,30 @@ import { slideInOutAnimation } from '../../../assets/animations/fade-in.animatio
     host: { '[@slideInOutAnimation]': '' }
 })
 export class PongComponent implements AfterViewInit {
-    public game;
-    public canvas;
+    
+    /**
+     * constructor de la clase PongComponent
+     */
+    constructor(private elementRef: ElementRef) {}
 
-    constructor(private elementRef: ElementRef) {
-        //this.game = new Game();
-        this.canvas = document.getElementById("#game")
-    }
-
+    /**
+     * incluimos de forma dinámica los script que vamos a utilizar
+     */
     ngAfterViewInit() {
         var o = document.createElement("script");
         o.type = "text/javascript";
         o.src = "../../../assets/js/serial/serial.js";
         this.elementRef.nativeElement.appendChild(o);
 
-
-
         var a = document.createElement("script");
         a.type = "text/javascript";
         a.src = "../../../assets/js/pong/usb.js";
         this.elementRef.nativeElement.appendChild(a);
     }
-
+    /**
+     * incluye el arxivo pong.js
+     */
     startGame() {
-
         var s = document.createElement("script");
         s.type = "text/javascript";
         s.src = "../../../assets/js/pong/pong.js";
@@ -41,10 +41,13 @@ export class PongComponent implements AfterViewInit {
     }
 
 
-
+    //codigo arduino
     sampleContent1 = `
          <pre >
             <code class="arduino highlight">
+    /**
+     * Sketch que permite jugar al pong.
+     */
     #include &ltWebUSB.h&gt
 
     #include &ltLiquidCrystal.h&gt
@@ -52,15 +55,6 @@ export class PongComponent implements AfterViewInit {
     LiquidCrystal lcd(7, 8, 9, 10, 11, 12);
 
     #define Serial WebUSBSerial
-
-    int melody[] = {
-    262, 196, 196, 220, 196, 0, 247, 262
-    };
-
-    // note durations: 4 = quarter note, 8 = eighth note, etc.:
-    int noteDurations[] = {
-    4, 8, 8, 4, 4, 4, 4, 4
-    };
 
     const WebUSBURL URLS[] = {
     { 1, "webusb.github.io/arduino/demos/" },
@@ -71,7 +65,9 @@ export class PongComponent implements AfterViewInit {
 
     WebUSB WebUSBSerial(URLS, 2, 1, ALLOWED_ORIGINS, 2);
 
-
+    /**
+     * Instancia de los pins que vamos a utilitzar.
+     */
     const int p1 = A0;
     const int p2 = A1;
 
@@ -93,9 +89,11 @@ export class PongComponent implements AfterViewInit {
     }
     
     void loop() {
-    
+    /**
+     * El loop estará constantemente pendiente que recibe datos.
+     * Cuando recibe un byte se irá a la parte del codigo que corresponde.
+     */
     if (Serial && Serial.available()) {
-        
         lcd.setCursor(4, 1);
 
         value1 = analogRead(p1); // realizar la lectura analógica raw
@@ -107,28 +105,21 @@ export class PongComponent implements AfterViewInit {
         int byte = Serial.read();
         
         if (byte == 'H') {
-        Serial.write(position1);
-        Serial.write('-');
-        Serial.write(position2);
+            // si recibe H envia las posiciones de los potenciometros
+            Serial.write(position1);
+            Serial.write('-');
+            Serial.write(position2);
         } else if(byte!='H'){
-        lcd.clear();
-        while (Serial.available() > 0) {
-            byte = Serial.read();
-            lcd.write(byte);
-        }
-        }else if(byte =='L'){
-        lcd.write(byte);
-        for (int thisNote = 0; thisNote < 8; thisNote++) {
-            int noteDuration = 1000 / noteDurations[thisNote];
-            tone(3, melody[thisNote], noteDuration);
-            int pauseBetweenNotes = noteDuration * 1.30;
-            delay(pauseBetweenNotes);
-            noTone(3);
-        }
+            // si recibe otro dato(la puntuación) lo muestra por pantalla
+            lcd.clear();
+            while (Serial.available() > 0) {
+                byte = Serial.read();
+                lcd.write(byte);
+            }
         }
         
-        Serial.flush();
-    }
+         Serial.flush();
+        }
     
     }
             </code>
@@ -136,67 +127,49 @@ export class PongComponent implements AfterViewInit {
         
         `;
 
+    //codigo script
     sampleContent2 = `
          <pre>
             <code class="typescript highlight">
-    var port;
-    var value;
-    var posiciones;
-    var pPlayer1;
-    var pPlayer2;
-    let textEncoder = new TextEncoder();
+    /**
+     * Método que se ejecuta cuando el navegador recibe datos 
+     * del dispositivo. Separa los datos que recibimos con un split
+     * y lo asigna a pPlayer1 y pPlayer2
+     */
+    port.onReceive = data => {
+        let textDecoder = new TextDecoder();
+        value = textDecoder.decode(data) + "";
+        posiciones = value.split("-");
+        pPlayer1 = posiciones[0].charCodeAt();
+        pPlayer2 = posiciones[1].charCodeAt();
 
-    let connectButton = document.querySelector('#connect');
-
-    function connect() {
-        console.log('Connecting to ' + port.device_.productName + '...');
-
-        port.connect().then(() => {
-            console.log(port);
-            console.log('Connected.');
-            connectButton.textContent = 'Disconnect';
-            port.onReceive = data => {
-                let textDecoder = new TextDecoder();
-                value = textDecoder.decode(data) + "";
-                posiciones = value.split("-");
-                pPlayer1 = posiciones[0].charCodeAt();
-                pPlayer2 = posiciones[1].charCodeAt();
-
-                if (p1 != undefined || p2 != undefined) {
-                    p1.y = (270 * pPlayer1) / 100;
-                    p2.y = (270 * pPlayer2) / 100;
-                }
-            }
-            port.onReceiveError = error => {
-                console.log('Receive error: ' + error);
-            };
-        }, error => {
-            console.log('Connection error: ' + error);
-        });
-    };
-
-    connectButton.addEventListener('click', function () {
-        if (port) {
-            port.disconnect();
-            connectButton.textContent = 'Connect';
-        } else {
-            serial.requestPort().then(selectedPort => {
-                port = selectedPort;
-                connect();
-            }).catch(error => {
-                console.log('Connection error: ' + error);
-            });
+        if (p1 != undefined || p2 != undefined) {
+            p1.y = (270 * pPlayer1) / 100;
+            p2.y = (270 * pPlayer2) / 100;
         }
-    });
+    }
+            </code>
+        </pre>
 
-    serial.getPorts().then(ports => {
-        if (ports.length == 0) {
-            console.log('No devices found.');
-        } else {
-            port = ports[0];
-            connect();
-        }
-    });
+        <pre>
+            <code class="typescript highlight">
+   // Initialize our game instance
+    var game = new Game();
+
+    function MainLoop() {
+        game.update();
+        game.draw();
+        // Call the main loop again at a frame rate of 30fps
+        setTimeout(MainLoop, 33.3333);
+    }
+
+    MainLoop();
+
+    /**
+     * hacemos un intervalo cada 50 milisegundos para pregutar sobre la
+     * posición de los potenciometros 
+     */
+    setInterval(function () { port.send(textEncoder.encode("H")); }, 50);
             </code>
         </pre>
         

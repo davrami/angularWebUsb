@@ -212,4 +212,9 @@ function MainLoop() {
 
 MainLoop();
 
+/**
+ * hacemos un intervalo cada 50 milisegundos para pregutar sobre la
+ * posición de los potenciometros 
+ */
+
 setInterval(function () { port.send(textEncoder.encode("H")); }, 50);
