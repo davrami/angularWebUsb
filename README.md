@@ -3,9 +3,7 @@
 
 Implementing WebUSB with Arduino leonardo in Angular2
 
-* npm install
-* ng serve
-
+https://davrami.github.io/angularWebUsb/getStarted
 
 ## Contact
 Aarón Salvador, David Ramírez
